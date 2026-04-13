@@ -7,7 +7,6 @@
 
 <style>
 
-/* BACKGROUND */
 body {
     margin: 0;
     font-family: 'Segoe UI';
@@ -15,7 +14,6 @@ body {
     color: white;
 }
 
-/* STAR CANVAS */
 canvas {
     position: fixed;
     top: 0;
@@ -61,14 +59,8 @@ canvas {
     font-size: 28px;
     margin: 12px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.social i:hover, .social img:hover {
-    transform: scale(1.2);
-}
-
-/* MENU */
 .menu {
     display: flex;
     justify-content: center;
@@ -82,22 +74,17 @@ canvas {
     background: rgba(255,255,255,0.06);
     border-radius: 12px;
     cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
 }
 
 .box:hover {
-    transform: translateY(-5px);
     background: rgba(56,189,248,0.3);
 }
 
-/* SECTIONS */
 .section {
     display: none;
     padding: 40px;
 }
 
-/* CARDS */
 .card {
     background: rgba(255,255,255,0.05);
     padding: 20px;
@@ -105,7 +92,6 @@ canvas {
     margin: 10px 0;
 }
 
-/* CERT GRID (USED FOR CERT + ACHIEVEMENTS) */
 .cert-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -120,8 +106,6 @@ canvas {
     padding: 12px;
     border-radius: 12px;
     text-align: center;
-    transition: 0.3s;
-    cursor: pointer;
 }
 
 .cert-grid img {
@@ -131,33 +115,12 @@ canvas {
     border-radius: 10px;
 }
 
-.cert-grid a:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #38bdf8;
-}
-
-/* BUTTON */
 button {
     padding: 10px 20px;
     background: #38bdf8;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .hero-right img {
-        width: 180px;
-        height: 180px;
-        margin-top: 20px;
-    }
 }
 
 </style>
@@ -171,29 +134,9 @@ button {
 <div class="hero">
 
     <div class="hero-left">
-
         <h1>DHESIKA P.M</h1>
         <p>Electronics and Communication Engineering</p>
         <p>PORTFOLIO</p>
-
-        <div class="social">
-
-            <i class="fab fa-linkedin"
-               onclick="openLink('https://www.linkedin.com/in/pm-dhesika-864410294')"></i>
-
-            <i class="fab fa-github"
-               onclick="openLink('https://github.com/Dhesika-24')"></i>
-
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png"
-                 width="28"
-                 onclick="openLink('https://leetcode.com/u/dhesika_24/')">
-
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png"
-                 width="28"
-                 onclick="openLink('https://www.hackerrank.com/')">
-
-        </div>
-
     </div>
 
     <div class="hero-right">
@@ -205,18 +148,11 @@ button {
 <!-- MENU -->
 <div class="menu">
 
-    <div class="box" onclick="show('resume')">RESUME</div>
     <div class="box" onclick="show('projects')">PROJECTS</div>
     <div class="box" onclick="show('intern')">INTERNSHIPS</div>
     <div class="box" onclick="show('cert')">CERTIFICATES</div>
-    <div class="box" onclick="show('ach')">ACHIEVEMENTS</div>
+    <div class="box" onclick="show('achievements')">ACHIEVEMENTS</div>
 
-</div>
-
-<!-- RESUME -->
-<div id="resume" class="section">
-    <h2>Resume</h2>
-    <button onclick="openLink('DHESIKA_PM.pdf')">OPEN RESUME</button>
 </div>
 
 <!-- PROJECTS -->
@@ -240,61 +176,37 @@ button {
 <h2>Certificates</h2>
 
 <div class="cert-grid">
-
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png">
-        <p>CIT Certificate</p>
-    </a>
-
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/citcertificate.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/citcertificate.png">
-        <p>CIT Completion</p>
-    </a>
-
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png">
-        <p>RVS Certificate</p>
-    </a>
-
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvspic.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvspic.png">
-        <p>RVS Event</p>
-    </a>
-
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwis.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwis.png">
-        <p>TNWIS Certificate</p>
-    </a>
-
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwiscertificate.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwiscertificate.png">
-        <p>TNWIS Completion</p>
-    </a>
-
+    <a href="cit.png"><img src="cit.png"><p>CIT</p></a>
+    <a href="rvs.png"><img src="rvs.png"><p>RVS</p></a>
 </div>
 
 </div>
 
-<!-- ACHIEVEMENTS -->
-<div id="ach" class="section">
+<!-- ACHIEVEMENTS (FIXED SECTION NAME) -->
+<div id="achievements" class="section">
 
 <h2>Achievements</h2>
 
 <div class="cert-grid">
 
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/nptel.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/nptel.png">
+    <a href="Nptel.png">
+        <img src="Nptel.png">
         <p>NPTEL Achievement</p>
     </a>
 
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/marathon.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/marathon.png">
-        <p>Marathon Participation</p>
+    <a href="nptel2.png">
+        <img src="nptel2.png">
+        <p>NPTEL Certificate 2</p>
     </a>
 
-    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/conference.png" target="_blank">
-        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/conference.png">
-        <p>Conference Participation</p>
+    <a href="marathon.png">
+        <img src="marathon.png">
+        <p>Marathon</p>
+    </a>
+
+    <a href="conference.png">
+        <img src="conference.png">
+        <p>Conference</p>
     </a>
 
 </div>
@@ -303,25 +215,16 @@ button {
 
 <script>
 
-/* SHOW SECTIONS */
+/* SHOW SECTION */
 function show(id){
-
     document.querySelectorAll(".section").forEach(s=>{
         s.style.display="none";
     });
-
     document.getElementById(id).style.display="block";
 }
 
-/* DEFAULT PAGE */
-window.onload = () => {
-    show("projects");
-};
-
-/* OPEN LINKS */
-function openLink(url){
-    window.open(url,"_blank");
-}
+/* DEFAULT */
+window.onload = () => show("projects");
 
 /* STAR BACKGROUND */
 const canvas = document.getElementById("stars");
