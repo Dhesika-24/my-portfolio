@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,8 @@
 body {
     margin: 0;
     font-family: 'Segoe UI';
-    color: white;
     background: #0a0f1f;
+    color: white;
     overflow-x: hidden;
 }
 
@@ -23,53 +24,49 @@ canvas {
     z-index: -1;
 }
 
-/* NAVBAR */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 15px;
-    backdrop-filter: blur(12px);
-    background: rgba(255,255,255,0.05);
-    z-index: 1000;
-}
-
-.navbar a {
-    color: white;
-    margin: 0 18px;
-    text-decoration: none;
-}
-
-.navbar a:hover {
-    color: #38bdf8;
-}
-
-/* HEADER */
+/* HEADER LAYOUT FIXED */
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 80px 60px;
+}
+
+/* LEFT TEXT */
+.header-left {
+    flex: 1;
+    text-align: left;
+}
+
+/* CENTER NAME */
+.header-center {
+    flex: 1;
     text-align: center;
-    padding: 120px 20px 40px;
 }
 
 h1 {
-    font-size: 52px;
-    margin: 10px 0;
+    font-size: 48px;
     background: linear-gradient(90deg, #38bdf8, #a78bfa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+/* RIGHT PROFILE IMAGE */
+.header-right {
+    flex: 1;
+    text-align: right;
+}
+
 .profile {
-    width: 170px;
-    height: 170px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     border: 3px solid #38bdf8;
 }
 
 /* SOCIAL */
 .social i, .social img {
-    font-size: 26px;
+    font-size: 24px;
     margin: 10px;
     cursor: pointer;
     transition: 0.3s;
@@ -87,58 +84,65 @@ h1 {
     color: #cbd5f5;
 }
 
-/* PROJECTS */
+/* CARDS */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 20px;
-    padding: 40px;
+    padding: 30px;
 }
 
 .card {
     background: rgba(255,255,255,0.05);
     padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    transition: 0.4s;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
     box-shadow: 0 0 20px #38bdf8;
 }
 
-/* CERTIFICATIONS */
+/* INTERN BOX (CLICK TO EXPAND) */
+.intern-box {
+    margin: 40px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.intern-content {
+    display: none;
+    margin-top: 15px;
+    color: #cbd5f5;
+}
+
+/* CERTIFICATES */
 .cert-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 30px;
-    text-align: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
 }
 
 .cert-grid a {
     text-decoration: none;
     color: white;
     background: rgba(255,255,255,0.05);
-    padding: 15px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    transition: 0.3s;
-}
-
-.cert-grid a:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 15px #38bdf8;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .cert-img {
     width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    border-radius: 8px;
 }
 
-/* FLOATING BUTTON */
+/* FLOAT BUTTON */
 .hire-btn {
     position: fixed;
     bottom: 25px;
@@ -149,17 +153,6 @@ h1 {
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 0 20px #38bdf8;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-section {
-    padding: 60px 20px;
 }
 
 </style>
@@ -169,135 +162,142 @@ section {
 
 <canvas id="stars"></canvas>
 
-<!-- NAVBAR -->
-<div class="navbar">
-    <a href="#home">Home</a>
-    <a href="#projects">Projects</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#contact">Contact</a>
-</div>
-
 <!-- HEADER -->
-<header id="home">
+<header>
 
-    <img src="profile.jpeg" class="profile">
+    <!-- LEFT -->
+    <div class="header-left">
+        <div class="social">
 
-    <h1>DHESIKA P.M</h1>
-    <p>IoT • Backend • AI Developer</p>
+            <i class="fab fa-linkedin" onclick="openLink('https://www.linkedin.com/in/pm-dhesika-864410294')"></i>
+            <i class="fab fa-github" onclick="openLink('https://github.com/Dhesika-24')"></i>
 
-    <div class="social">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png"
+                 width="26"
+                 onclick="openLink('https://leetcode.com/u/dhesika_24/')">
 
-        <i class="fab fa-linkedin"
-           onclick="openLink('https://www.linkedin.com/in/pm-dhesika-864410294')"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png"
+                 width="26"
+                 onclick="openLink('https://www.hackerrank.com/')">
 
-        <i class="fab fa-github"
-           onclick="openLink('https://github.com/Dhesika-24')"></i>
+        </div>
+    </div>
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png"
-             width="28"
-             onclick="openLink('https://leetcode.com/u/dhesika_24/')">
+    <!-- CENTER -->
+    <div class="header-center">
+        <h1>DHESIKA P.M</h1>
+        <p>IoT • Backend • AI Developer</p>
+    </div>
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png"
-             width="28"
-             onclick="openLink('https://www.hackerrank.com/')">
-
+    <!-- RIGHT PROFILE -->
+    <div class="header-right">
+        <img src="profile.jpeg" class="profile">
     </div>
 
 </header>
 
-<!-- ABOUT -->
 <div class="about">
     Electronics and Communication Engineering student focused on IoT, Backend & AI systems.
 </div>
 
 <!-- PROJECTS -->
-<section id="projects">
-
-    <h2>Projects</h2>
+<section>
+    <h2 style="text-align:center;">Projects</h2>
 
     <div class="cards">
 
         <div class="card">
-            <h3>LoRa-Based Weather Monitoring System</h3>
-            <p>Long-range IoT system using LoRa for environmental monitoring (temperature, humidity, pressure, soil moisture).</p>
+            <h3>LoRa Weather Monitoring</h3>
+            <p>Long-range IoT system for environmental sensing.</p>
         </div>
 
         <div class="card">
-            <h3>Spring Boot Backend Development</h3>
-            <p>REST API development using Spring Boot with database integration and scalable backend architecture.</p>
-        </div>
-
-        <div class="card">
-            <h3>Bus Crowd Management System</h3>
-            <p>IoT system for passenger counting and overcrowding control using sensors.</p>
-        </div>
-
-        <div class="card">
-            <h3>Drone Navigation System</h3>
-            <p>Embedded system project for autonomous navigation and control logic.</p>
+            <h3>Spring Boot Backend</h3>
+            <p>REST APIs with database integration and backend logic.</p>
         </div>
 
     </div>
+</section>
+
+<!-- INTERNSHIPS CLICK BOX -->
+<section>
+
+<div class="intern-box" onclick="toggleIntern()">
+    <h2>Internships ▼</h2>
+
+    <div class="intern-content" id="internContent">
+        <p>• IoT Internship</p>
+        <p>• PCB Designing Internship</p>
+        <p>• VLSI Training</p>
+    </div>
+</div>
 
 </section>
 
 <!-- CERTIFICATIONS -->
-<section id="certifications">
+<section>
 
-    <h2>Certifications</h2>
+<h2 style="text-align:center;">Certifications</h2>
 
-    <div class="cert-grid">
+<div class="cert-grid">
 
-        <a href="nptel2.png" target="_blank">
-            <img src="nptel2.png" class="cert-img">
-            <p>NPTEL Certificate</p>
-        </a>
+    <a href="nptel2.png" target="_blank">
+        <img src="nptel2.png" class="cert-img">
+        <p>NPTEL</p>
+    </a>
 
-        <a href="Nptel.png" target="_blank">
-            <img src="Nptel.png" class="cert-img">
-            <p>NPTEL Course</p>
-        </a>
+    <a href="Nptel.png" target="_blank">
+        <img src="Nptel.png" class="cert-img">
+        <p>NPTEL Course</p>
+    </a>
 
-        <a href="marathon.png" target="_blank">
-            <img src="marathon.png" class="cert-img">
-            <p>Marathon Participation</p>
-        </a>
+    <a href="marathon.png" target="_blank">
+        <img src="marathon.png" class="cert-img">
+        <p>Marathon</p>
+    </a>
 
-        <a href="conference.png" target="_blank">
-            <img src="conference.png" class="cert-img">
-            <p>Conference Certificate</p>
-        </a>
+    <a href="conference.png" target="_blank">
+        <img src="conference.png" class="cert-img">
+        <p>Conference</p>
+    </a>
 
-    </div>
+</div>
 
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Open for internships, backend & IoT roles</p>
+<!-- ACHIEVEMENTS -->
+<section>
+<h2 style="text-align:center;">Achievements</h2>
+<p style="text-align:center; color:#cbd5f5;">
+Built IoT systems • Organized events • Technical participation
+</p>
 </section>
 
-<!-- FLOATING BUTTON -->
+<!-- FLOAT BUTTON -->
 <div class="hire-btn" onclick="openLink('mailto:yourmail@gmail.com')">
-    🚀 Hire Me
+🚀 Hire Me
 </div>
 
 <script>
 
-/* OPEN LINKS */
 function openLink(url){
     window.open(url, "_blank");
 }
 
-/* STAR BACKGROUND */
+/* INTERNSHIP TOGGLE */
+function toggleIntern(){
+    const box = document.getElementById("internContent");
+    box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+/* STAR ANIMATION */
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let stars = Array(120).fill().map(() => ({
+let stars = Array(100).fill().map(() => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     r: Math.random() * 2
@@ -311,7 +311,6 @@ function animate(){
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
         ctx.fill();
-
         s.y += 0.4;
         if(s.y > canvas.height) s.y = 0;
     });
