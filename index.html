@@ -6,6 +6,33 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+    .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.cert-grid a {
+    text-decoration: none;
+    color: white;
+    background: rgba(255,255,255,0.05);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.cert-grid img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.cert-grid a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #38bdf8;
+}
 
 body {
     margin: 0;
