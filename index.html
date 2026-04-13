@@ -7,13 +7,16 @@
 
 <style>
 
+/* BACKGROUND */
 body {
     margin: 0;
     font-family: 'Segoe UI';
     background: #0a0f1f;
     color: white;
+    overflow-x: hidden;
 }
 
+/* STAR BACKGROUND */
 canvas {
     position: fixed;
     top: 0;
@@ -28,6 +31,7 @@ canvas {
     align-items: center;
     padding: 60px;
     flex-wrap: wrap;
+    animation: fadeUp 0.8s ease;
 }
 
 .hero-left {
@@ -59,8 +63,14 @@ canvas {
     font-size: 28px;
     margin: 12px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
+.social i:hover, .social img:hover {
+    transform: scale(1.2);
+}
+
+/* MENU */
 .menu {
     display: flex;
     justify-content: center;
@@ -74,17 +84,23 @@ canvas {
     background: rgba(255,255,255,0.06);
     border-radius: 12px;
     cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 .box:hover {
+    transform: translateY(-5px);
     background: rgba(56,189,248,0.3);
 }
 
+/* SECTIONS */
 .section {
     display: none;
     padding: 40px;
+    animation: fadeUp 0.6s ease;
 }
 
+/* CARDS */
 .card {
     background: rgba(255,255,255,0.05);
     padding: 20px;
@@ -92,6 +108,7 @@ canvas {
     margin: 10px 0;
 }
 
+/* GRID */
 .cert-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -106,6 +123,8 @@ canvas {
     padding: 12px;
     border-radius: 12px;
     text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .cert-grid img {
@@ -115,12 +134,58 @@ canvas {
     border-radius: 10px;
 }
 
+.cert-grid a:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 25px rgba(56,189,248,0.6);
+}
+
+/* POPUP */
+#popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#popup img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 12px;
+}
+
+/* BUTTON */
 button {
     padding: 10px 20px;
     background: #38bdf8;
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    font-weight: bold;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-right img {
+        width: 180px;
+        height: 180px;
+        margin-top: 20px;
+    }
 }
 
 </style>
@@ -136,7 +201,20 @@ button {
     <div class="hero-left">
         <h1>DHESIKA P.M</h1>
         <p>Electronics and Communication Engineering</p>
-        <p>PORTFOLIO</p>
+        <p>ECE | IoT | Backend Developer | Spring Boot</p>
+
+        <div class="social">
+
+            <i class="fab fa-linkedin" onclick="openLink('https://www.linkedin.com/in/pm-dhesika-864410294')"></i>
+            <i class="fab fa-github" onclick="openLink('https://github.com/Dhesika-24')"></i>
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png"
+                 width="28" onclick="openLink('https://leetcode.com/u/dhesika_24/')">
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png"
+                 width="28" onclick="openLink('https://www.hackerrank.com/')">
+
+        </div>
     </div>
 
     <div class="hero-right">
@@ -147,12 +225,10 @@ button {
 
 <!-- MENU -->
 <div class="menu">
-
     <div class="box" onclick="show('projects')">PROJECTS</div>
     <div class="box" onclick="show('intern')">INTERNSHIPS</div>
     <div class="box" onclick="show('cert')">CERTIFICATES</div>
-    <div class="box" onclick="show('achievements')">ACHIEVEMENTS</div>
-
+    <div class="box" onclick="show('ach')">ACHIEVEMENTS</div>
 </div>
 
 <!-- PROJECTS -->
@@ -164,39 +240,61 @@ button {
 
 <!-- INTERNSHIPS -->
 <div id="intern" class="section">
-    <h2>Internships</h2>
-    <div class="card">IoT Internship Certificate</div>
-    <div class="card">PCB Designing Internship</div>
-    <div class="card">VLSI Training</div>
+    <h2>Internship Certificates</h2>
+
+    <div class="cert-grid">
+
+        <a onclick="openImage('iot.png')">
+            <img src="iot.png">
+            <p>IoT Internship</p>
+        </a>
+
+        <a onclick="openImage('pcb.png')">
+            <img src="pcb.png">
+            <p>PCB Designing</p>
+        </a>
+
+        <a onclick="openImage('vlsi.png')">
+            <img src="vlsi.png">
+            <p>VLSI Training</p>
+        </a>
+
+    </div>
 </div>
 
 <!-- CERTIFICATES -->
 <div id="cert" class="section">
-
 <h2>Certificates</h2>
 
 <div class="cert-grid">
-    <a href="cit.png"><img src="cit.png"><p>CIT</p></a>
-    <a href="rvs.png"><img src="rvs.png"><p>RVS</p></a>
-</div>
+
+    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png">
+        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png">
+        <p>CIT</p>
+    </a>
+
+    <a href="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png">
+        <img src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png">
+        <p>RVS</p>
+    </a>
 
 </div>
+</div>
 
-<!-- ACHIEVEMENTS (FIXED SECTION NAME) -->
-<div id="achievements" class="section">
-
+<!-- ACHIEVEMENTS -->
+<div id="ach" class="section">
 <h2>Achievements</h2>
 
 <div class="cert-grid">
 
     <a href="Nptel.png">
         <img src="Nptel.png">
-        <p>NPTEL Achievement</p>
+        <p>NPTEL</p>
     </a>
 
     <a href="nptel2.png">
         <img src="nptel2.png">
-        <p>NPTEL Certificate 2</p>
+        <p>NPTEL 2</p>
     </a>
 
     <a href="marathon.png">
@@ -210,12 +308,15 @@ button {
     </a>
 
 </div>
+</div>
 
+<!-- POPUP -->
+<div id="popup" onclick="closeImage()">
+    <img id="popupImg">
 </div>
 
 <script>
 
-/* SHOW SECTION */
 function show(id){
     document.querySelectorAll(".section").forEach(s=>{
         s.style.display="none";
@@ -223,8 +324,20 @@ function show(id){
     document.getElementById(id).style.display="block";
 }
 
-/* DEFAULT */
 window.onload = () => show("projects");
+
+function openLink(url){
+    window.open(url,"_blank");
+}
+
+function openImage(src){
+    document.getElementById("popupImg").src = src;
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closeImage(){
+    document.getElementById("popup").style.display = "none";
+}
 
 /* STAR BACKGROUND */
 const canvas = document.getElementById("stars");
