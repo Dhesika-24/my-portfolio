@@ -105,7 +105,7 @@ canvas {
     margin: 10px 0;
 }
 
-/* CERTIFICATES */
+/* CERT GRID (USED FOR CERT + ACHIEVEMENTS) */
 .cert-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -146,9 +146,8 @@ button {
     font-weight: bold;
 }
 
-/* MOBILE RESPONSIVE */
+/* MOBILE */
 @media (max-width: 768px) {
-
     .hero {
         flex-direction: column;
         text-align: center;
@@ -302,7 +301,7 @@ button {
 
 </div>
 
-
+<script>
 
 /* SHOW SECTIONS */
 function show(id){
@@ -314,7 +313,7 @@ function show(id){
     document.getElementById(id).style.display="block";
 }
 
-/* DEFAULT OPEN */
+/* DEFAULT PAGE */
 window.onload = () => {
     show("projects");
 };
@@ -324,7 +323,7 @@ function openLink(url){
     window.open(url,"_blank");
 }
 
-/* STAR ANIMATION */
+/* STAR BACKGROUND */
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
