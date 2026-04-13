@@ -58,11 +58,24 @@ nav a {
     -webkit-text-fill-color: transparent;
 }
 
-.hero-right img {
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    border: 4px solid #38bdf8;
+/* ⭐ PREMIUM TYPING STYLE */
+#typing {
+    font-size: 20px;
+    margin-top: 10px;
+    color: #93c5fd;
+    font-weight: 500;
+}
+
+/* blinking cursor */
+.cursor {
+    display: inline-block;
+    width: 10px;
+    animation: blink 0.8s infinite;
+    color: #38bdf8;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
 }
 
 /* ================= SOCIAL ================= */
@@ -145,7 +158,10 @@ section.show {
     <div class="hero-center">
 
         <h1>👩‍💻 DHESIKA P.M</h1>
+
+        <!-- TYPING OUTPUT -->
         <div id="typing"></div>
+
         <p>Electronics & Communication Engineering</p>
 
         <div class="social">
@@ -173,7 +189,6 @@ section.show {
 <!-- INTERNSHIPS -->
 <section id="intern">
 <h2>🚀 Internships</h2>
-
 <div class="grid">
     <div class="card" onclick="openImage('lumens.png')">Lumens Internship</div>
     <div class="card" onclick="openImage('iot and pcb.png')">IoT & PCB Internship</div>
@@ -181,10 +196,9 @@ section.show {
 </div>
 </section>
 
-<!-- CERTIFICATES (RAW GITHUB FIXED) -->
+<!-- CERTIFICATES -->
 <section id="cert">
 <h2>📜 Certificates</h2>
-
 <div class="grid">
 
     <div class="card" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png')">CIT Certificate</div>
@@ -201,7 +215,6 @@ section.show {
 <!-- ACHIEVEMENTS -->
 <section id="ach">
 <h2>🏆 Achievements</h2>
-
 <div class="grid">
     <div class="card" onclick="openImage('Nptel.png')">NPTEL</div>
     <div class="card" onclick="openImage('nptel2.png')">NPTEL Advanced</div>
@@ -217,7 +230,7 @@ section.show {
 
 <script>
 
-/* IMAGE POPUP */
+/* POPUP */
 function openImage(src){
     document.getElementById("popupImg").src = src;
     document.getElementById("popup").style.display = "flex";
@@ -227,12 +240,12 @@ function closeImage(){
     document.getElementById("popup").style.display = "none";
 }
 
-/* OPEN LINK */
+/* LINK */
 function openLink(url){
     window.open(url,"_blank");
 }
 
-/* SCROLL REVEAL (APPLE STYLE) */
+/* SCROLL REVEAL */
 const sections = document.querySelectorAll("section");
 
 const observer = new IntersectionObserver(entries=>{
@@ -247,21 +260,45 @@ sections.forEach(sec=>{
     observer.observe(sec);
 });
 
-</script>
+/* ================= PREMIUM TYPING ================= */
 
-</body>
-</html>
-const text = "IoT Developer • Embedded Systems • Spring Boot Backend Engineer";
-let i = 0;
+const roles = [
+    "IoT Developer",
+    "Embedded Systems Engineer",
+    "Spring Boot Backend Developer",
+    "AI & Automation Enthusiast"
+];
 
-function typeEffect() {
-    if (i < text.length) {
-        document.getElementById("typing").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeEffect, 50);
+let roleIndex = 0;
+let charIndex = 0;
+let typingDiv = document.getElementById("typing");
+
+function typeRole() {
+    if (charIndex < roles[roleIndex].length) {
+        typingDiv.innerHTML = roles[roleIndex].substring(0, charIndex + 1) + '<span class="cursor">|</span>';
+        charIndex++;
+        setTimeout(typeRole, 60);
+    } else {
+        setTimeout(eraseRole, 1200);
+    }
+}
+
+function eraseRole() {
+    if (charIndex > 0) {
+        typingDiv.innerHTML = roles[roleIndex].substring(0, charIndex - 1) + '<span class="cursor">|</span>';
+        charIndex--;
+        setTimeout(eraseRole, 30);
+    } else {
+        roleIndex = (roleIndex + 1) % roles.length;
+        setTimeout(typeRole, 300);
     }
 }
 
 window.onload = () => {
-    typeEffect();
+    typeRole();
 };
+
+</script>
+
+</body>
+</html>
