@@ -145,6 +145,7 @@ section.show {
     <div class="hero-center">
 
         <h1>👩‍💻 DHESIKA P.M</h1>
+        <div id="typing"></div>
         <p>Electronics & Communication Engineering</p>
 
         <div class="social">
@@ -250,3 +251,17 @@ sections.forEach(sec=>{
 
 </body>
 </html>
+const text = "IoT Developer • Embedded Systems • Spring Boot Backend Engineer";
+let i = 0;
+
+function typeEffect() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 50);
+    }
+}
+
+window.onload = () => {
+    typeEffect();
+};
