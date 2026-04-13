@@ -109,6 +109,20 @@ h1 {
     box-shadow: 0 0 20px #38bdf8;
 }
 
+/* ACHIEVEMENTS (UPDATED) */
+.cert-img {
+    width: 280px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+
+.cert-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #38bdf8;
+}
+
 /* FLOATING BUTTON */
 .hire-btn {
     position: fixed;
@@ -133,18 +147,6 @@ section {
     padding: 60px 20px;
 }
 
-.stats {
-    text-align: center;
-}
-
-.stat-box {
-    display: inline-block;
-    margin: 10px;
-    padding: 15px 20px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 10px;
-}
-
 </style>
 </head>
 
@@ -156,12 +158,12 @@ section {
 <div class="navbar">
     <a href="#home">Home</a>
     <a href="#projects">Projects</a>
-    <a href="#stats">Stats</a>
+    <a href="#achievements">Achievements</a>
     <a href="#contact">Contact</a>
 </div>
 
 <!-- HEADER -->
-<header id="home" data-aos="fade-up">
+<header id="home">
 
     <img src="profile.jpeg" class="profile">
 
@@ -189,70 +191,61 @@ section {
 </header>
 
 <!-- ABOUT -->
-<div class="about" data-aos="fade-up">
+<div class="about">
     Electronics and Communication Engineering student focused on IoT, Backend & AI systems.
 </div>
 
-<!-- PROJECTS (UPDATED AS YOU REQUESTED) -->
+<!-- PROJECTS -->
 <section id="projects">
 
-    <h2 data-aos="fade-right">Projects</h2>
+    <h2>Projects</h2>
 
     <div class="cards">
 
-        <div class="card" data-aos="zoom-in">
-            <h3>LoRa-Based Weather Monitoring System</h3>
-            <p>
-                Designed a long-range IoT system using LoRa technology to monitor
-                environmental parameters like temperature, humidity, pressure, and soil moisture.
-                Optimized for remote and agricultural applications.
-            </p>
+        <div class="card">
+            <h3>LoRa Weather Monitoring System</h3>
+            <p>Long-range IoT system for environmental monitoring using LoRa communication.</p>
         </div>
 
-        <div class="card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card">
             <h3>Spring Boot Backend Development</h3>
-            <p>
-                Developing REST APIs using Spring Boot with database integration,
-                CRUD operations, and scalable backend architecture. Focused on
-                production-level backend systems.
-            </p>
+            <p>REST API development with database integration and scalable backend design.</p>
         </div>
 
-        <div class="card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card">
             <h3>Bus Crowd Management System</h3>
-            <p>
-                IoT-based system to detect passenger count and manage overcrowding
-                using sensors and automation for safer transportation.
-            </p>
+            <p>IoT system for passenger counting and crowd control automation.</p>
         </div>
 
-        <div class="card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="card">
             <h3>Drone Navigation System</h3>
-            <p>
-                Embedded system project focused on navigation control, sensor integration,
-                and autonomous movement logic for aerial monitoring applications.
-            </p>
+            <p>Embedded system project for autonomous navigation and control logic.</p>
         </div>
 
     </div>
 
 </section>
 
-<!-- STATS -->
-<section id="stats" data-aos="fade-up">
+<!-- ACHIEVEMENTS (NOW CONTAINS CERTIFICATES) -->
+<section id="achievements">
 
-    <h2>Coding Stats</h2>
+    <h2>Achievements & Certifications</h2>
 
-    <div class="stats">
-        <div class="stat-box">LeetCode: 150+ Problems</div>
-        <div class="stat-box">HackerRank: 5★</div>
-        <div class="stat-box">Spring Boot APIs: In Progress</div>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center;">
+
+        <img class="cert-img" src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png">
+        <img class="cert-img" src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/citcertificate.png">
+        <img class="cert-img" src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png">
+        <img class="cert-img" src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvspic.png">
+        <img class="cert-img" src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwis.png">
+        <img class="cert-img" src="https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwiscertificate.png">
+
     </div>
 
 </section>
 
 <!-- CONTACT -->
-<section id="contact" data-aos="fade-up">
+<section id="contact">
     <h2>Contact</h2>
     <p>Open for internships, backend & IoT roles</p>
 </section>
@@ -262,10 +255,7 @@ section {
     🚀 Hire Me
 </div>
 
-<!-- AOS + SCRIPT -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-AOS.init();
 
 function openLink(url){
     window.open(url, "_blank");
@@ -292,6 +282,7 @@ function animate(){
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
         ctx.fill();
+
         s.y += 0.4;
         if(s.y > canvas.height) s.y = 0;
     });
