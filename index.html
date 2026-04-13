@@ -4,8 +4,6 @@
 <title>Dhesika Portfolio</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<!-- AOS -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <style>
@@ -18,7 +16,7 @@ body {
     overflow-x: hidden;
 }
 
-/* STAR CANVAS */
+/* STAR BACKGROUND */
 canvas {
     position: fixed;
     top: 0;
@@ -43,7 +41,6 @@ canvas {
     color: white;
     margin: 0 18px;
     text-decoration: none;
-    transition: 0.3s;
 }
 
 .navbar a:hover {
@@ -72,10 +69,6 @@ h1 {
 }
 
 /* SOCIAL */
-.social {
-    margin-top: 15px;
-}
-
 .social i, .social img {
     font-size: 26px;
     margin: 10px;
@@ -95,44 +88,25 @@ h1 {
     color: #cbd5f5;
 }
 
-/* PROJECT CARDS */
+/* PROJECTS */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 20px;
     padding: 40px;
 }
 
 .card {
     background: rgba(255,255,255,0.05);
-    padding: 25px;
+    padding: 20px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
     transition: 0.4s;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
 }
 
 .card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 0 25px #38bdf8;
-}
-
-.card::after {
-    content: "Click for details →";
-    position: absolute;
-    bottom: -40px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    background: rgba(0,0,0,0.6);
-    padding: 10px;
-    transition: 0.3s;
-}
-
-.card:hover::after {
-    bottom: 0;
+    box-shadow: 0 0 20px #38bdf8;
 }
 
 /* FLOATING BUTTON */
@@ -141,7 +115,7 @@ h1 {
     bottom: 25px;
     right: 25px;
     background: #38bdf8;
-    padding: 14px 20px;
+    padding: 14px 18px;
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
@@ -155,7 +129,6 @@ h1 {
     100% { transform: scale(1); }
 }
 
-/* SECTION */
 section {
     padding: 60px 20px;
 }
@@ -195,26 +168,21 @@ section {
     <h1>DHESIKA P.M</h1>
     <p>IoT • Backend • AI Developer</p>
 
-    <!-- SOCIAL LINKS -->
     <div class="social">
 
         <i class="fab fa-linkedin"
-           onclick="openLink('https://www.linkedin.com/in/pm-dhesika-864410294')"
-           title="LinkedIn"></i>
+           onclick="openLink('https://www.linkedin.com/in/pm-dhesika-864410294')"></i>
 
         <i class="fab fa-github"
-           onclick="openLink('https://github.com/Dhesika-24')"
-           title="GitHub"></i>
+           onclick="openLink('https://github.com/Dhesika-24')"></i>
 
         <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png"
              width="28"
-             onclick="openLink('https://leetcode.com/u/dhesika_24/')"
-             title="LeetCode">
+             onclick="openLink('https://leetcode.com/u/dhesika_24/')">
 
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png"
              width="28"
-             onclick="openLink('https://www.hackerrank.com/')"
-             title="HackerRank">
+             onclick="openLink('https://www.hackerrank.com/')">
 
     </div>
 
@@ -225,7 +193,7 @@ section {
     Electronics and Communication Engineering student focused on IoT, Backend & AI systems.
 </div>
 
-<!-- PROJECTS -->
+<!-- PROJECTS (UPDATED AS YOU REQUESTED) -->
 <section id="projects">
 
     <h2 data-aos="fade-right">Projects</h2>
@@ -233,19 +201,37 @@ section {
     <div class="cards">
 
         <div class="card" data-aos="zoom-in">
-            Bus Crowd Management System
+            <h3>LoRa-Based Weather Monitoring System</h3>
+            <p>
+                Designed a long-range IoT system using LoRa technology to monitor
+                environmental parameters like temperature, humidity, pressure, and soil moisture.
+                Optimized for remote and agricultural applications.
+            </p>
         </div>
 
         <div class="card" data-aos="zoom-in" data-aos-delay="100">
-            LoRa Weather Monitoring
+            <h3>Spring Boot Backend Development</h3>
+            <p>
+                Developing REST APIs using Spring Boot with database integration,
+                CRUD operations, and scalable backend architecture. Focused on
+                production-level backend systems.
+            </p>
         </div>
 
         <div class="card" data-aos="zoom-in" data-aos-delay="200">
-            Drone Navigation System
+            <h3>Bus Crowd Management System</h3>
+            <p>
+                IoT-based system to detect passenger count and manage overcrowding
+                using sensors and automation for safer transportation.
+            </p>
         </div>
 
         <div class="card" data-aos="zoom-in" data-aos-delay="300">
-            Spring Boot Backend API
+            <h3>Drone Navigation System</h3>
+            <p>
+                Embedded system project focused on navigation control, sensor integration,
+                and autonomous movement logic for aerial monitoring applications.
+            </p>
         </div>
 
     </div>
@@ -260,7 +246,7 @@ section {
     <div class="stats">
         <div class="stat-box">LeetCode: 150+ Problems</div>
         <div class="stat-box">HackerRank: 5★</div>
-        <div class="stat-box">Backend APIs Built: 5+</div>
+        <div class="stat-box">Spring Boot APIs: In Progress</div>
     </div>
 
 </section>
@@ -271,17 +257,16 @@ section {
     <p>Open for internships, backend & IoT roles</p>
 </section>
 
-<!-- FLOATING BUTTON -->
+<!-- HIRE BUTTON -->
 <div class="hire-btn" onclick="openLink('mailto:yourmail@gmail.com')">
     🚀 Hire Me
 </div>
 
-<!-- AOS -->
+<!-- AOS + SCRIPT -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 AOS.init();
 
-/* OPEN LINKS */
 function openLink(url){
     window.open(url, "_blank");
 }
@@ -299,7 +284,7 @@ let stars = Array(120).fill().map(() => ({
     r: Math.random() * 2
 }));
 
-function animateStars(){
+function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle = "white";
 
@@ -307,15 +292,14 @@ function animateStars(){
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
         ctx.fill();
-
         s.y += 0.4;
         if(s.y > canvas.height) s.y = 0;
     });
 
-    requestAnimationFrame(animateStars);
+    requestAnimationFrame(animate);
 }
 
-animateStars();
+animate();
 
 </script>
 
