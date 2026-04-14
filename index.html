@@ -3,8 +3,6 @@
 <head>
 <title>Dhesika Portfolio</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <style>
 
 /* ================= PREMIUM BACKGROUND ================= */
@@ -57,7 +55,6 @@ nav a {
 .hero-center {
     flex: 1;
     text-align: center;
-
     background: rgba(255,255,255,0.65);
     backdrop-filter: blur(18px);
     border: 1px solid rgba(99,102,241,0.25);
@@ -71,7 +68,7 @@ nav a {
     color: #4338ca;
 }
 
-/* ================= PROFILE IMAGE (FIXED BOX STYLE) ================= */
+/* ================= PROFILE IMAGE ================= */
 .hero-right {
     display: flex;
     justify-content: center;
@@ -82,26 +79,19 @@ nav a {
 .hero-right img {
     width: 190px;
     height: 190px;
-    border-radius: 12px; /* square */
+    border-radius: 12px;
     object-fit: cover;
-
     border: 3px solid #6366f1;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-
     background: white;
 }
 
 /* ================= SOCIAL ================= */
-.social i {
-    font-size: 24px;
+.social a {
     margin: 10px;
-    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
     color: #4338ca;
-    transition: 0.3s;
-}
-
-.social i:hover {
-    transform: scale(1.2);
 }
 
 /* ================= SECTIONS ================= */
@@ -174,8 +164,8 @@ section {
         <p>Electronics & Communication Engineering</p>
 
         <div class="social">
-            <i class="fab fa-linkedin"></i>
-            <i class="fab fa-github"></i>
+            <a href="https://linkedin.com/in/your-link" target="_blank">LinkedIn</a>
+            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
         </div>
     </div>
 
@@ -204,30 +194,31 @@ section {
 </div>
 </section>
 
-<!-- ================= CERTIFICATES (GITHUB RAW - FIXED) ================= -->
+<!-- CERTIFICATES -->
 <section id="cert">
 <h2>📜 Certificates</h2>
 
 <div class="grid">
 
-    <div class="card" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png')">
+    <div class="card" onclick="openImage('https://github.com/Dhesika-24/My-Certifications/blob/main/cit.png?raw=true')">
         CIT Certificate
     </div>
 
-    <div class="card" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/citcertificate.png')">
+    <div class="card" onclick="openImage('https://github.com/Dhesika-24/My-Certifications/blob/main/citcertificate.png?raw=true')">
         CIT Completion
     </div>
 
-    <div class="card" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png')">
+    <div class="card" onclick="openImage('https://github.com/Dhesika-24/My-Certifications/blob/main/rvs.png?raw=true')">
         RVS Certificate
     </div>
 
-    <div class="card" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwis.png')">
+    <div class="card" onclick="openImage('https://github.com/Dhesika-24/My-Certifications/blob/main/tnwis.png?raw=true')">
         TNWIS Certificate
     </div>
 
 </div>
 </section>
+
 <!-- ACHIEVEMENTS -->
 <section id="ach">
 <h2>🏆 Achievements</h2>
@@ -238,7 +229,7 @@ section {
 </section>
 
 <!-- POPUP -->
-<div id="popup">
+<div id="popup" onclick="closeImage()">
     <img id="popupImg">
 </div>
 
@@ -254,7 +245,7 @@ function closeImage(){
     document.getElementById("popup").style.display = "none";
 }
 
-/* ================= TECH NETWORK ANIMATION ================= */
+/* NETWORK ANIMATION */
 const canvas = document.getElementById("network");
 const ctx = canvas.getContext("2d");
 
@@ -264,8 +255,8 @@ canvas.height = window.innerHeight;
 let dots = Array.from({length: 80}, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 1,
-    vy: (Math.random() - 0.5) * 1
+    vx: (Math.random() - 0.5),
+    vy: (Math.random() - 0.5)
 }));
 
 function animate(){
