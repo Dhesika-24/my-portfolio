@@ -2,440 +2,411 @@
 <html lang="en">
 <head>
 <title>Dhesika P.M. — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #05080f;
-  --surface: rgba(255,255,255,0.03);
-  --surface2: rgba(255,255,255,0.055);
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --accent: #7eb8f7;
-  --accent2: #5de8d6;
-  --accent3: #c4a8ff;
-  --ink: #dce8f8;
-  --ink2: #7a9ab8;
-  --ink3: #3a566e;
-  --r: 18px;
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+:root{
+  --bg:    #07101f;
+  --s1:    rgba(16,28,52,0.6);
+  --s2:    rgba(16,28,52,0.35);
+  --line:  rgba(100,170,240,0.12);
+  --a1:    #7ec8f0;
+  --a2:    #5ee8ce;
+  --a3:    #b39dfa;
+  --t0:    #ddeaf8;
+  --t1:    #7fa8c8;
+  --t2:    #3a5a78;
+  --r:     14px;
 }
  
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t0);overflow-x:hidden;cursor:none}
  
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-  overflow-x:hidden;
-  cursor:none;
+/* ─────────────────────────────────────────
+   CURSOR — minimal diamond
+───────────────────────────────────────── */
+#cd{
+  position:fixed;width:10px;height:10px;
+  background:var(--a1);
+  transform:translate(-50%,-50%) rotate(45deg);
+  pointer-events:none;z-index:99999;
+  transition:width .2s,height .2s,background .2s,opacity .2s;
+  opacity:.9;
 }
- 
-/* ── CURSOR ── */
-#cur{
-  position:fixed;pointer-events:none;z-index:99999;
-  width:28px;height:28px;
-  border:1px solid rgba(126,184,247,0.5);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  transition:width .4s,height .4s,border-color .4s,background .4s;
-  mix-blend-mode:screen;
+#ct{
+  position:fixed;width:28px;height:28px;
+  border:1px solid rgba(126,200,240,.4);
+  transform:translate(-50%,-50%) rotate(45deg);
+  pointer-events:none;z-index:99998;
+  transition:width .3s,height .3s,border-color .3s;
 }
-#cur2{
-  position:fixed;pointer-events:none;z-index:99999;
-  width:5px;height:5px;
-  background:var(--accent2);border-radius:50%;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 10px var(--accent2);
-}
-body.h #cur{width:50px;height:50px;border-color:rgba(93,232,214,0.6);background:rgba(93,232,214,0.04)}
-body.h #cur2{background:var(--accent3);box-shadow:0 0 14px var(--accent3)}
+body.hov #cd{width:7px;height:7px;background:var(--a2)}
+body.hov #ct{width:38px;height:38px;border-color:rgba(94,232,206,.5)}
  
-/* ── NOISE OVERLAY ── */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity:.028;
-}
+/* ─────────────────────────────────────────
+   CANVAS
+───────────────────────────────────────── */
+#c{position:fixed;inset:0;z-index:0;pointer-events:none}
  
-/* ── CANVAS ── */
-#bgc{position:fixed;inset:0;z-index:0;pointer-events:none}
- 
-/* ── NAV ── */
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
 nav{
-  position:fixed;top:20px;left:50%;transform:translateX(-50%);
-  display:flex;gap:2px;
-  background:rgba(5,8,15,0.7);
-  border:1px solid var(--border2);
-  border-radius:100px;
-  padding:6px 8px;
+  position:fixed;top:0;width:100%;
+  display:flex;justify-content:center;gap:34px;
+  padding:15px 40px;
+  background:rgba(7,16,31,.65);
   backdrop-filter:blur(28px);
-  z-index:1000;
-  animation:slideDown .8s cubic-bezier(.22,.68,0,1.2) both;
+  border-bottom:1px solid var(--line);
+  z-index:900;
 }
-@keyframes slideDown{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
- 
 nav a{
-  text-decoration:none;font-size:11px;font-weight:400;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--ink3);
-  padding:7px 14px;border-radius:100px;
-  transition:color .25s,background .25s;cursor:none;
-  white-space:nowrap;
+  text-decoration:none;font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--t1);cursor:none;
+  position:relative;padding-bottom:3px;
+  transition:color .3s;
 }
-nav a:hover{color:var(--ink);background:rgba(255,255,255,0.06)}
+nav a::after{
+  content:'';position:absolute;bottom:0;left:50%;right:50%;
+  height:1px;background:var(--a1);
+  transition:left .3s,right .3s;
+}
+nav a:hover{color:var(--a1)}
+nav a:hover::after{left:0;right:0}
  
-/* ── FLOATING ANIMATION ── */
+/* ─────────────────────────────────────────
+   FLOATING KEYFRAME (universal)
+───────────────────────────────────────── */
 @keyframes float{
-  0%,100%{transform:translateY(0px)}
-  50%{transform:translateY(-12px)}
+  0%,100%{transform:translateY(0)}
+  50%    {transform:translateY(-10px)}
 }
-@keyframes float2{
-  0%,100%{transform:translateY(0px)}
-  50%{transform:translateY(-8px)}
+@keyframes floatSm{
+  0%,100%{transform:translateY(0)}
+  50%    {transform:translateY(-5px)}
 }
-@keyframes float3{
-  0%,100%{transform:translateY(-6px)}
-  50%{transform:translateY(6px)}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes spinR{to{transform:rotate(360deg)}}
+@keyframes glowBreath{
+  0%,100%{opacity:.5;transform:scale(1)}
+  50%    {opacity:.9;transform:scale(1.07)}
+}
+@keyframes roleUp{
+  0%   {transform:translateY(0)}
+  20%  {transform:translateY(-28px)}
+  45%  {transform:translateY(-56px)}
+  70%  {transform:translateY(-84px)}
+  95%,100%{transform:translateY(0)}
 }
  
-/* ── HERO ── */
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
 .hero{
   position:relative;z-index:1;
   min-height:100vh;
   display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;
-  padding:120px 40px 80px;
-  gap:22px;
+  align-items:center;justify-content:center;text-align:center;
+  padding:130px 40px 70px;gap:18px;
 }
  
 .hero-eyebrow{
-  font-size:10px;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--ink3);
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--t2);
   animation:fadeUp .8s ease both;
 }
  
 /* profile */
-.profile-wrap{
-  position:relative;width:180px;height:180px;
-  animation:fadeUp .8s .1s ease both,float 6s ease-in-out 1s infinite;
+.pw{
+  position:relative;width:200px;height:200px;
+  animation:fadeUp .8s .1s ease both, float 6s ease-in-out 1.5s infinite;
   cursor:none;
 }
-.profile-wrap img{
-  width:180px;height:180px;border-radius:50%;
+.pw img{
+  width:200px;height:200px;border-radius:50%;
   object-fit:cover;position:relative;z-index:2;
-  border:1px solid var(--border2);
-  filter:brightness(.95) saturate(.9);
+  border:1.5px solid rgba(126,200,240,.3);
+  display:block;
 }
-.profile-halo{
-  position:absolute;inset:-30px;border-radius:50%;
-  background:radial-gradient(circle,rgba(126,184,247,.12) 0%,rgba(93,232,214,.05) 50%,transparent 70%);
-  animation:pulse 4s ease-in-out infinite;z-index:0;
+.pglow{
+  position:absolute;inset:-22px;border-radius:50%;
+  background:radial-gradient(circle,rgba(126,200,240,.18) 0%,rgba(94,232,206,.08) 50%,transparent 72%);
+  animation:glowBreath 4s ease-in-out infinite;z-index:0;
 }
-@keyframes pulse{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.05)}}
- 
-.ring{
-  position:absolute;inset:0;border-radius:50%;
+.pr1{
+  position:absolute;inset:-9px;border-radius:50%;
   border:1px solid transparent;
+  border-top-color:var(--a1);border-right-color:var(--a2);
+  animation:spinR 4s linear infinite;
 }
-.ring1{inset:-10px;border-color:rgba(126,184,247,.2);animation:spinR 8s linear infinite}
-.ring2{inset:-18px;border-color:rgba(93,232,214,.12);animation:spinR 13s linear infinite reverse}
+.pr2{
+  position:absolute;inset:-16px;border-radius:50%;
+  border:1px solid transparent;
+  border-bottom-color:var(--a3);border-left-color:var(--a1);
+  animation:spinR 7s linear infinite reverse;
+  opacity:.6;
+}
  
-@keyframes spinR{from{transform:rotate(0)}to{transform:rotate(360deg)}}
- 
+/* name */
 .hero h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(42px,7vw,80px);
-  font-weight:300;
-  color:var(--ink);
-  letter-spacing:.06em;
-  line-height:1;
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(34px,6vw,64px);
+  font-weight:400;line-height:1.05;
+  min-height:1.2em;
   animation:fadeUp .8s .2s ease both;
-  min-height:1em;
 }
-.hero h1 em{
-  font-style:italic;
-  background:linear-gradient(120deg,var(--accent),var(--accent2) 50%,var(--accent3));
+.tname{
+  background:linear-gradient(130deg,var(--a1),var(--a2) 55%,var(--a3));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
- 
-.blink{
-  display:inline-block;width:2px;height:.8em;
-  background:var(--accent2);border-radius:1px;
-  margin-left:4px;vertical-align:middle;
+.tblink{
+  display:inline-block;width:2.5px;height:.85em;
+  background:var(--a2);vertical-align:baseline;margin-left:2px;border-radius:2px;
   animation:blink .8s step-end infinite;
 }
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
  
 /* roles */
-.roles{
-  font-family:'DM Sans',sans-serif;
-  font-size:13px;font-weight:300;
-  color:var(--accent2);letter-spacing:.12em;
-  height:20px;overflow:hidden;
-  animation:fadeUp .8s .3s ease both;
-}
+.roles-outer{height:28px;overflow:hidden;animation:fadeUp .8s .3s ease both}
 .roles-inner{
   display:flex;flex-direction:column;
-  animation:scroll 9s steps(4,end) infinite;
+  animation:roleUp 10s cubic-bezier(.4,0,.2,1) 2s infinite;
 }
-.roles-inner span{height:20px;line-height:20px}
-@keyframes scroll{
-  0%{transform:translateY(0)}25%{transform:translateY(-20px)}
-  50%{transform:translateY(-40px)}75%{transform:translateY(-60px)}100%{transform:translateY(0)}
-}
- 
-.hero-dept{font-size:12.5px;color:var(--ink3);letter-spacing:.05em;animation:fadeUp .8s .35s ease both;}
-.hero-bio{
-  font-size:13px;color:var(--ink3);max-width:440px;
-  line-height:1.85;font-weight:300;
-  animation:fadeUp .8s .4s ease both;
+.roles-inner span{
+  height:28px;line-height:28px;white-space:nowrap;
+  font-size:14px;font-weight:400;letter-spacing:.08em;
+  color:var(--a2);
 }
  
-.socials{
-  display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
-  animation:fadeUp .8s .48s ease both;
-}
-.socials a{
-  font-size:11.5px;font-weight:400;letter-spacing:.08em;
-  text-decoration:none;color:var(--ink2);
-  border:1px solid var(--border2);
-  padding:9px 20px;border-radius:100px;
-  background:var(--surface);
-  backdrop-filter:blur(12px);
-  transition:color .3s,border-color .3s,background .3s,transform .3s;
-  cursor:none;
-}
-.socials a:hover{
-  color:var(--accent);border-color:rgba(126,184,247,.35);
-  background:rgba(126,184,247,.06);transform:translateY(-3px);
+.hero-dept{font-size:13.5px;color:var(--t1);letter-spacing:.04em;animation:fadeUp .8s .38s ease both}
+ 
+.hero-summary{
+  font-size:13px;color:var(--t2);max-width:460px;line-height:1.8;
+  font-weight:300;animation:fadeUp .8s .46s ease both;
 }
  
-/* scroll cue */
-.scroll-cue{
-  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  animation:fadeUp .8s .7s ease both;
-}
-.scroll-cue span{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
-.scroll-line{width:1px;height:36px;background:linear-gradient(var(--accent2),transparent);animation:scrollLine 2s ease-in-out infinite}
-@keyframes scrollLine{0%,100%{opacity:.3;transform:scaleY(.5) translateY(-8px)}50%{opacity:1;transform:scaleY(1) translateY(0)}}
- 
-/* ── SECTIONS ── */
-section{position:relative;z-index:1;padding:100px 5vw}
- 
-.s-head{display:flex;align-items:center;gap:16px;margin-bottom:52px}
-.s-tag{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);font-weight:400}
-.s-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);max-width:56px}
-.s-head h2{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(30px,4vw,46px);font-weight:300;font-style:italic;
-  color:var(--ink);letter-spacing:.02em;
-}
- 
-/* ── FLOAT CARDS ── */
-.float-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:16px;
-}
- 
-.fcard{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  padding:28px 24px;
-  cursor:none;
-  backdrop-filter:blur(20px);
-  position:relative;overflow:hidden;
-  animation:float 6s ease-in-out infinite;
-  transition:border-color .4s,box-shadow .4s,transform .4s;
-}
-.fcard:nth-child(2){animation-delay:-.8s;animation-duration:7s}
-.fcard:nth-child(3){animation-delay:-1.8s;animation-duration:5.5s}
-.fcard:nth-child(4){animation-delay:-2.4s;animation-duration:6.5s}
-.fcard:nth-child(5){animation-delay:-3s;animation-duration:7.5s}
-.fcard:nth-child(6){animation-delay:-1.2s;animation-duration:6s}
-.fcard:nth-child(7){animation-delay:-2.8s;animation-duration:5.8s}
-.fcard:nth-child(8){animation-delay:-.4s;animation-duration:7.2s}
- 
-.fcard::before{
-  content:'';position:absolute;inset:0;border-radius:var(--r);
-  background:radial-gradient(circle at 30% 20%,rgba(126,184,247,0.04),transparent 60%);
-  pointer-events:none;
-}
-.fcard:hover{
-  border-color:rgba(126,184,247,.22);
-  box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 30px rgba(126,184,247,.06);
-}
-.fcard:hover{animation-play-state:paused}
- 
-.fcard-icon{
-  width:40px;height:40px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:14px;border:1px solid var(--border);
-  background:var(--surface2);
-}
-.fcard h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:19px;font-weight:400;color:var(--ink);margin-bottom:6px;
-}
-.fcard p{font-size:12.5px;color:var(--ink3);line-height:1.7;font-weight:300}
- 
-/* ── EDU CARD ── */
-.edu-wrap{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r);padding:36px 34px;
-  backdrop-filter:blur(20px);
-  position:relative;overflow:hidden;
-  animation:float2 7s ease-in-out infinite;
-}
-.edu-wrap::after{
-  content:'';position:absolute;left:0;top:0;
-  width:2px;height:100%;
-  background:linear-gradient(var(--accent),var(--accent2),var(--accent3));
-  border-radius:2px;
-}
-.edu-wrap h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;font-weight:400;color:var(--ink);margin-bottom:8px;
-}
-.edu-wrap .deg{font-size:13px;color:var(--ink2);letter-spacing:.04em;margin-bottom:16px}
-.badge{
+/* social */
+.social{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .54s ease both}
+.social a{
   display:inline-flex;align-items:center;gap:6px;
-  background:rgba(126,184,247,.07);
-  border:1px solid rgba(126,184,247,.14);
-  color:var(--accent);font-size:11.5px;font-weight:400;letter-spacing:.04em;
-  padding:6px 16px;border-radius:100px;margin-right:8px;margin-top:4px;
+  text-decoration:none;font-size:12px;font-weight:400;
+  letter-spacing:.08em;color:var(--t1);
+  border:1px solid var(--line);
+  padding:8px 18px;border-radius:100px;
+  background:var(--s2);
+  transition:color .25s,border-color .25s,transform .3s,box-shadow .3s;
+  cursor:none;
+  animation:floatSm 5s ease-in-out infinite;
+}
+.social a:nth-child(2){animation-delay:.4s}
+.social a:nth-child(3){animation-delay:.8s}
+.social a:hover{
+  color:var(--a1);
+  border-color:rgba(126,200,240,.35);
+  transform:translateY(-4px);
+  box-shadow:0 8px 28px rgba(126,200,240,.15);
 }
  
-/* ── SKILLS ── */
-.skills-block{margin-bottom:44px}
-.sk-label{
-  font-size:9px;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--ink3);margin-bottom:16px;
+/* ─────────────────────────────────────────
+   SECTIONS
+───────────────────────────────────────── */
+section{position:relative;z-index:1;padding:86px 64px}
+section:nth-child(even){background:rgba(10,20,40,.3)}
+ 
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:42px}
+.sl{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--t2);font-weight:500}
+.sdiv{flex:0 0 36px;height:1px;background:linear-gradient(90deg,var(--a1),var(--a2));opacity:.3}
+.sh h2{font-family:'DM Serif Display',serif;font-size:clamp(24px,3.5vw,38px);font-weight:400;color:var(--t0)}
+ 
+/* ─────────────────────────────────────────
+   GRID
+───────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:18px}
+ 
+/* ─────────────────────────────────────────
+   CARD  — float on hover
+───────────────────────────────────────── */
+.card{
+  background:var(--s1);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:24px 22px;
+  cursor:none;
+  backdrop-filter:blur(16px);
+  transition:transform .45s cubic-bezier(.22,.68,0,1.2),
+             box-shadow .45s,border-color .3s;
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% -20%,rgba(126,200,240,.06),transparent 65%);
+  opacity:0;transition:opacity .4s;
+}
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 48px rgba(0,0,0,.35),0 0 0 1px rgba(126,200,240,.15);
+  border-color:rgba(126,200,240,.22);
+}
+.card:hover::before{opacity:1}
+.ci{font-size:20px;margin-bottom:11px}
+.card h3{font-family:'DM Serif Display',serif;font-size:17px;font-weight:400;color:var(--t0);margin-bottom:6px}
+.card p{font-size:12.5px;color:var(--t2);line-height:1.7;font-weight:300}
+.vtag{
+  display:inline-block;margin-top:13px;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--a1);font-weight:400;
+}
+.card:hover .vtag::after{content:' →'}
+ 
+/* ─────────────────────────────────────────
+   EDUCATION CARD
+───────────────────────────────────────── */
+.edu-card{
+  background:var(--s1);border:1px solid var(--line);
+  border-radius:var(--r);padding:28px 26px;
+  backdrop-filter:blur(16px);
+  position:relative;overflow:hidden;
+  transition:transform .45s cubic-bezier(.22,.68,0,1.2),box-shadow .45s;
+}
+.edu-card:hover{transform:translateY(-6px);box-shadow:0 18px 44px rgba(0,0,0,.3)}
+.edu-card::after{
+  content:'';position:absolute;top:0;left:0;
+  width:3px;height:100%;
+  background:linear-gradient(180deg,var(--a1),var(--a2));
+  border-radius:3px 0 0 3px;
+}
+.edu-card h3{font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;color:var(--t0);margin-bottom:8px}
+.edu-card .deg{font-size:13px;color:var(--t1);margin-bottom:12px;font-weight:300}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(126,200,240,.07);
+  border:1px solid rgba(126,200,240,.15);
+  color:var(--a1);font-size:11.5px;font-weight:400;
+  padding:5px 13px;border-radius:100px;
+  margin-right:7px;margin-top:4px;letter-spacing:.03em;
+}
+ 
+/* ─────────────────────────────────────────
+   SKILLS
+───────────────────────────────────────── */
+.skblock{margin-bottom:38px}
+.skblock:last-child{margin-bottom:0}
+.skcat{
+  font-size:9.5px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--t2);font-weight:500;margin-bottom:16px;
   display:flex;align-items:center;gap:12px;
 }
-.sk-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.skcat::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
  
-.sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
- 
-.sk{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:14px;padding:20px 14px;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  cursor:none;backdrop-filter:blur(16px);
-  transition:border-color .35s,box-shadow .35s;
-  animation:float3 7s ease-in-out infinite;
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{
+  display:flex;align-items:center;gap:9px;
+  background:var(--s2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 16px 9px 11px;
+  font-size:12.5px;font-weight:400;color:var(--t1);
+  cursor:none;backdrop-filter:blur(12px);
+  transition:transform .35s cubic-bezier(.22,.68,0,1.2),
+             border-color .3s,color .3s,box-shadow .35s;
 }
-.sk:nth-child(2){animation-delay:-.6s;animation-duration:6s}
-.sk:nth-child(3){animation-delay:-1.4s;animation-duration:8s}
-.sk:nth-child(4){animation-delay:-2.2s;animation-duration:5.5s}
-.sk:nth-child(5){animation-delay:-3s;animation-duration:7s}
-.sk:nth-child(6){animation-delay:-.9s;animation-duration:6.5s}
-.sk:nth-child(7){animation-delay:-1.8s;animation-duration:7.5s}
-.sk:nth-child(8){animation-delay:-2.6s;animation-duration:5.8s}
- 
-.sk:hover{border-color:rgba(126,184,247,.25);box-shadow:0 12px 40px rgba(0,0,0,.3),0 0 20px rgba(126,184,247,.05)}
-.sk:hover{animation-play-state:paused}
- 
-.sk-ico{
-  width:40px;height:40px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  border:1px solid var(--border);background:var(--surface2);
+.pill svg,.pill img{width:20px;height:20px;flex-shrink:0}
+.pill:hover{
+  transform:translateY(-5px);
+  border-color:rgba(126,200,240,.3);
+  color:var(--t0);
+  box-shadow:0 10px 28px rgba(0,0,0,.3);
 }
-.sk-name{font-size:11.5px;font-weight:400;color:var(--ink2);text-align:center;line-height:1.35}
+.pd:hover{border-color:rgba(179,157,250,.35);box-shadow:0 10px 28px rgba(0,0,0,.3),0 0 10px rgba(179,157,250,.12)}
+.pl:hover{border-color:rgba(94,232,206,.35);box-shadow:0 10px 28px rgba(0,0,0,.3),0 0 10px rgba(94,232,206,.12)}
  
-.lang-row{display:flex;flex-wrap:wrap;gap:10px}
-.lp{
-  display:inline-flex;align-items:center;gap:10px;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:100px;padding:10px 20px;
-  cursor:none;backdrop-filter:blur(16px);
-  transition:border-color .3s,box-shadow .3s;
-  animation:float2 7s ease-in-out infinite;
+/* ─────────────────────────────────────────
+   CONTACT
+───────────────────────────────────────── */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.citem{
+  display:flex;align-items:center;gap:14px;
+  background:var(--s1);border:1px solid var(--line);
+  border-radius:var(--r);padding:20px 20px;
+  cursor:none;backdrop-filter:blur(14px);
+  transition:transform .4s cubic-bezier(.22,.68,0,1.2),border-color .3s,box-shadow .4s;
 }
-.lp:nth-child(2){animation-delay:-.5s}
-.lp:nth-child(3){animation-delay:-1.2s;animation-duration:6s}
-.lp:nth-child(4){animation-delay:-2s;animation-duration:8s}
-.lp:hover{border-color:rgba(126,184,247,.25);box-shadow:0 8px 30px rgba(0,0,0,.25);animation-play-state:paused}
-.lp .ln{font-size:12.5px;font-weight:400;color:var(--ink2)}
- 
-/* ── CERT CARD ── */
-.cert-card{cursor:none}
-.cert-card .vtag{
-  display:inline-block;margin-top:12px;
-  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--accent);font-weight:400;
-  transition:letter-spacing .3s;
+.citem:hover{
+  transform:translateY(-6px);
+  border-color:rgba(126,200,240,.25);
+  box-shadow:0 14px 36px rgba(0,0,0,.3);
 }
-.cert-card:hover .vtag{letter-spacing:.18em}
- 
-/* ── CONTACT ── */
-.ct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
-.ct{
-  display:flex;align-items:center;gap:16px;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r);padding:22px 22px;
-  backdrop-filter:blur(16px);cursor:none;
-  animation:float 7s ease-in-out infinite;
-  transition:border-color .35s,box-shadow .35s;
+.cico{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:rgba(126,200,240,.07);
+  display:flex;align-items:center;justify-content:center;font-size:17px;
 }
-.ct:nth-child(2){animation-delay:-.7s;animation-duration:6s}
-.ct:nth-child(3){animation-delay:-1.5s;animation-duration:8s}
-.ct:nth-child(4){animation-delay:-2.3s;animation-duration:5.5s}
-.ct:nth-child(5){animation-delay:-3.1s;animation-duration:7s}
-.ct:hover{border-color:rgba(126,184,247,.22);box-shadow:0 16px 48px rgba(0,0,0,.35);animation-play-state:paused}
-.ct-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:var(--surface2);border:1px solid var(--border)}
-.ct-info p{font-size:9.5px;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
-.ct-info a,.ct-info span{font-size:13.5px;color:var(--ink);font-weight:300;text-decoration:none;transition:color .2s}
-.ct-info a:hover{color:var(--accent)}
+.cinfo p{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);margin-bottom:4px}
+.cinfo a,.cinfo span{font-size:13px;color:var(--t0);text-decoration:none;font-weight:300;transition:color .2s}
+.cinfo a:hover{color:var(--a1)}
  
-/* ── POPUP ── */
-#pop{
+/* ─────────────────────────────────────────
+   POPUP
+───────────────────────────────────────── */
+#popup{
   display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.88);
+  background:rgba(3,7,16,.93);
   justify-content:center;align-items:center;
-  z-index:9999;backdrop-filter:blur(20px);
+  z-index:9999;backdrop-filter:blur(16px);
 }
-#pop.on{display:flex;animation:fadeIn .3s ease}
-#pop img{max-width:82%;max-height:82%;border-radius:12px;box-shadow:0 40px 100px rgba(0,0,0,.8);animation:scaleIn .35s cubic-bezier(.22,.68,0,1.2)}
-.pcl{position:absolute;top:24px;right:32px;color:rgba(255,255,255,.4);font-size:24px;cursor:none;transition:color .2s;line-height:1}
-.pcl:hover{color:#fff}
+#popup.on{display:flex;animation:fadeUp .25s ease}
+#popup img{
+  max-width:82%;max-height:82%;border-radius:12px;
+  box-shadow:0 30px 80px rgba(0,0,0,.7);
+  animation:fadeUp .3s ease;
+}
+.pcls{
+  position:absolute;top:22px;right:28px;
+  color:rgba(255,255,255,.4);font-size:24px;cursor:none;
+  transition:color .2s;line-height:1;
+}
+.pcls:hover{color:#fff}
  
-/* ── FOOTER ── */
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
 footer{
   position:relative;z-index:1;text-align:center;
-  padding:30px;border-top:1px solid var(--border);
-  font-size:11px;color:var(--ink3);letter-spacing:.1em;font-weight:300;
+  padding:32px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--t2);letter-spacing:.1em;
 }
  
-/* ── ANIMS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
- 
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+/* ─────────────────────────────────────────
+   REVEAL
+───────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
 .reveal.vis{opacity:1;transform:none}
  
-/* ── RESPONSIVE ── */
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
 @media(max-width:680px){
-  .hero{padding:100px 20px 80px}
-  section{padding:80px 20px}
-  nav{gap:0;padding:5px 6px;top:12px}
-  nav a{font-size:9.5px;padding:6px 10px;letter-spacing:.06em}
-  .sk-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+  .hero{padding:100px 24px 50px}
+  section{padding:68px 22px}
+  nav{gap:14px;padding:13px 16px}
+  nav a{font-size:10px}
 }
 </style>
 </head>
 <body>
  
-<div id="cur"></div>
-<div id="cur2"></div>
-<canvas id="bgc"></canvas>
+<div id="cd"></div>
+<div id="ct"></div>
+<canvas id="c"></canvas>
  
-<!-- NAV -->
-<nav>
+<nav id="nb">
   <a href="#home">Home</a>
   <a href="#education">Education</a>
   <a href="#skills">Skills</a>
@@ -446,20 +417,20 @@ footer{
   <a href="#contact">Contact</a>
 </nav>
  
-<!-- ══════ HERO ══════ -->
+<!-- ══ HERO ══ -->
 <div class="hero" id="home">
-  <p class="hero-eyebrow">Portfolio &nbsp;·&nbsp; ECE Engineer</p>
+  <p class="hero-eyebrow">Portfolio · ECE Engineer</p>
  
-  <div class="profile-wrap">
-    <div class="profile-halo"></div>
-    <div class="ring ring1"></div>
-    <div class="ring ring2"></div>
+  <div class="pw">
+    <div class="pglow"></div>
+    <div class="pr1"></div>
+    <div class="pr2"></div>
     <img src="profile.jpeg" alt="Dhesika P.M.">
   </div>
  
-  <h1><em><span id="tn"></span></em><span class="blink" id="tc"></span></h1>
+  <h1><span class="tname" id="tn"></span><span class="tblink" id="tb"></span></h1>
  
-  <div class="roles">
+  <div class="roles-outer">
     <div class="roles-inner">
       <span>UI / UX Developer</span>
       <span>Backend Developer</span>
@@ -468,589 +439,310 @@ footer{
     </div>
   </div>
  
-  <p class="hero-dept">Electronics &amp; Communication Engineering &nbsp;·&nbsp; KPR Institute</p>
-  <p class="hero-bio">Motivated ECE student with a strong foundation in embedded systems, PCB design, and IoT-based applications. Experienced in circuit design, sensor interfacing, and real-time data systems.</p>
+  <p class="hero-dept">Electronics &amp; Communication Engineering &nbsp;·&nbsp; KPR Institute of Engineering &amp; Technology</p>
+  <p class="hero-summary">Motivated ECE student with a strong foundation in embedded systems, PCB design, and IoT‑based applications. Experienced in circuit design, sensor interfacing, and real‑time data systems.</p>
  
-  <div class="socials">
+  <div class="social">
     <a href="https://linkedin.com/in/your-link" target="_blank">↗ LinkedIn</a>
     <a href="https://github.com/yourusername" target="_blank">↗ GitHub</a>
     <a href="https://leetcode.com/u/dhesika_24/" target="_blank">↗ LeetCode</a>
   </div>
- 
-  <div class="scroll-cue">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
 </div>
  
-<!-- ══════ EDUCATION ══════ -->
+<!-- ══ EDUCATION ══ -->
 <section id="education">
-  <div class="s-head reveal">
-    <span class="s-tag">Background</span>
-    <div class="s-line"></div>
-    <h2>Education</h2>
-  </div>
-  <div class="reveal">
-    <div class="edu-wrap">
+  <div class="sh reveal"><span class="sl">Background</span><div class="sdiv"></div><h2>Education</h2></div>
+  <div class="reveal" style="transition-delay:.1s">
+    <div class="edu-card">
       <h3>KPR Institute of Engineering and Technology, Coimbatore</h3>
       <p class="deg">B.E – Electronics and Communication Engineering</p>
-      <span class="badge">⭐ CGPA: 7.5</span>
+      <span class="badge">⭐ CGPA 7.5</span>
       <span class="badge">🧩 Minors: Software Development Engineering</span>
     </div>
   </div>
 </section>
  
-<!-- ══════ SKILLS ══════ -->
+<!-- ══ SKILLS ══ -->
 <section id="skills">
-  <div class="s-head reveal">
-    <span class="s-tag">Expertise</span>
-    <div class="s-line"></div>
-    <h2>Skills</h2>
-  </div>
+  <div class="sh reveal"><span class="sl">Expertise</span><div class="sdiv"></div><h2>Skills</h2></div>
  
-  <div class="skills-block reveal">
-    <div class="sk-label">Domains</div>
-    <div class="sk-grid">
+  <!-- Domain -->
+  <div class="skblock reveal" style="transition-delay:.05s">
+    <p class="skcat">Domain Skills</p>
+    <div class="pills">
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(196,168,255,.08);border-color:rgba(196,168,255,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="1" y="1" width="8" height="8" rx="2" fill="#c4a8ff" opacity=".9"/>
-            <rect x="13" y="1" width="8" height="8" rx="2" fill="#c4a8ff" opacity=".45"/>
-            <rect x="1" y="13" width="8" height="8" rx="2" fill="#c4a8ff" opacity=".45"/>
-            <rect x="13" y="13" width="8" height="8" rx="2" fill="#c4a8ff" opacity=".9"/>
-          </svg>
-        </div>
-        <span class="sk-name">UI / UX Design</span>
+      <div class="pill pd">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#b39dfa" opacity=".13"/><rect x="3" y="3" width="7" height="7" rx="1.5" fill="#b39dfa"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="#b39dfa" opacity=".55"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="#b39dfa" opacity=".55"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="#b39dfa" opacity=".28"/></svg>
+        UI / UX Design
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(93,232,214,.07);border-color:rgba(93,232,214,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="2" y="8" width="18" height="11" rx="2" stroke="#5de8d6" stroke-width="1.4" fill="none"/>
-            <path d="M7 8V6a5 5 0 0 1 10 0v2" stroke="#5de8d6" stroke-width="1.4" stroke-linecap="round"/>
-            <circle cx="11" cy="13.5" r="2" fill="#5de8d6"/>
-            <path d="M5 11h1.5M15.5 11H17M5 16h1.5M15.5 16H17" stroke="#5de8d6" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <span class="sk-name">PCB Design</span>
+      <div class="pill pd">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#5ee8ce" opacity=".1"/><rect x="5" y="10" width="14" height="4" rx="2" fill="#5ee8ce" opacity=".45"/><rect x="10" y="5" width="4" height="14" rx="2" fill="#5ee8ce" opacity=".45"/><circle cx="12" cy="12" r="2.8" fill="#5ee8ce"/><circle cx="6" cy="6" r="1.4" fill="#5ee8ce" opacity=".6"/><circle cx="18" cy="6" r="1.4" fill="#5ee8ce" opacity=".6"/><circle cx="6" cy="18" r="1.4" fill="#5ee8ce" opacity=".6"/><circle cx="18" cy="18" r="1.4" fill="#5ee8ce" opacity=".6"/></svg>
+        PCB Design
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(126,184,247,.07);border-color:rgba(126,184,247,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <circle cx="11" cy="11" r="3.5" fill="#7eb8f7"/>
-            <path d="M11 2.5v3M11 16.5v3M2.5 11h3M16.5 11h3" stroke="#7eb8f7" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M5 5l2.2 2.2M14.8 14.8l2.2 2.2M5 17l2.2-2.2M14.8 7.2l2.2-2.2" stroke="#7eb8f7" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
-          </svg>
-        </div>
-        <span class="sk-name">IoT</span>
+      <div class="pill pd">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#7ec8f0" opacity=".1"/><circle cx="12" cy="12" r="2.8" fill="#7ec8f0"/><path d="M5.5 12a6.5 6.5 0 0 1 6.5-6.5" stroke="#7ec8f0" stroke-width="1.5" stroke-linecap="round" opacity=".5"/><path d="M18.5 12a6.5 6.5 0 0 1-6.5 6.5" stroke="#7ec8f0" stroke-width="1.5" stroke-linecap="round" opacity=".5"/><path d="M2.5 12a9.5 9.5 0 0 1 9.5-9.5" stroke="#7ec8f0" stroke-width="1.2" stroke-linecap="round" opacity=".22"/><path d="M21.5 12a9.5 9.5 0 0 1-9.5 9.5" stroke="#7ec8f0" stroke-width="1.2" stroke-linecap="round" opacity=".22"/></svg>
+        IoT
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(134,239,172,.07);border-color:rgba(134,239,172,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M11 3L3 7l8 4 8-4-8-4z" fill="#86efac" opacity=".85"/>
-            <path d="M3 15l8 4 8-4M3 11l8 4 8-4" stroke="#86efac" stroke-width="1.4" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="sk-name">Spring Boot</span>
+      <div class="pill pd">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#6db33f" opacity=".1"/><path d="M20.2 16.36c-2.41 3.3-7.18 4.29-11.02 2.25A8.53 8.53 0 0 1 5.5 15.5c-1.17-2.3-.88-5.26.9-7.22C8.28 6.04 11.26 5.2 13.75 6.1c.48.18.95.42 1.37.72-.18-.76-.28-1.54-.28-2.32 0-.24.01-.48.03-.71A9.97 9.97 0 0 0 4 12c0 5.52 4.48 10 10 10 4.2 0 7.83-2.6 9.36-6.3-.35.24-.74.46-1.15.66z" fill="#6db33f"/><path d="M20.09 3.77c-.38 1.84-2.05 3.73-3.86 3.58-.14-1.87 1.34-3.84 3.86-3.58z" fill="#6db33f" opacity=".65"/></svg>
+        Spring Boot
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="2" y="2" width="18" height="18" rx="3.5" stroke="#fbbf24" stroke-width="1.3" fill="none"/>
-            <path d="M6 16l4-4-4-4M12 16h4" stroke="#fbbf24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="sk-name">Cadence EDA</span>
+      <div class="pill pd">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#f6ad55" opacity=".1"/><path d="M4 14 L8 8 L12 13 L16 6 L20 14" stroke="#f6ad55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.5" fill="#f6ad55"/><circle cx="12" cy="13" r="1.5" fill="#f6ad55"/><circle cx="16" cy="6" r="1.5" fill="#f6ad55"/></svg>
+        Cadence EDA
       </div>
  
     </div>
   </div>
  
-  <div class="skills-block reveal" style="transition-delay:.1s">
-    <div class="sk-label">Languages</div>
-    <div class="lang-row">
+  <!-- Languages -->
+  <div class="skblock reveal" style="transition-delay:.15s">
+    <p class="skcat">Programming Languages</p>
+    <div class="pills">
  
-      <div class="lp">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect width="20" height="20" rx="4" fill="#f97316" opacity=".12"/>
-          <text x="3" y="14.5" font-size="10" font-weight="600" fill="#f97316" font-family="monospace">Jv</text>
-        </svg>
-        <span class="ln">Java</span>
+      <div class="pill pl">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#f89820" opacity=".1"/><path d="M8.85 18.56s-.92.53.65.71c1.9.22 2.87.19 4.97-.21 0 0 .55.35 1.32.65-4.7 2.01-10.63-.12-6.94-1.15zm-.55-2.49s-1.03.76.54.92c2.03.21 3.64.23 6.41-.31 0 0 .38.39.99.6-5.68 1.66-12.01.13-7.94-1.21zm4.48-4.72c1.16 1.33-.3 2.53-.3 2.53s2.94-1.52 1.59-3.42c-1.26-1.77-2.23-2.65 3.01-5.69 0 0-8.22 2.05-4.3 6.58z" fill="#f89820"/><path d="M15.11 20.18s.68.56-.75.99c-2.71.82-11.29 1.07-13.67.03-.86-.37.75-.89 1.25-1 .53-.11.83-.93.83-.93-2.95.84-4.87 2.01-2.09 2.88 7.58 2.45 13.81-1.11 14.42-1.97z" fill="#f89820" opacity=".7"/></svg>
+        Java
       </div>
  
-      <div class="lp">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect width="20" height="20" rx="4" fill="#7eb8f7" opacity=".12"/>
-          <text x="4.5" y="14.5" font-size="12" font-weight="600" fill="#7eb8f7" font-family="monospace">C</text>
-        </svg>
-        <span class="ln">C</span>
+      <div class="pill pl">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#5c6bc0" opacity=".13"/><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm3.42 12.58c-.6.36-1.3.55-2.03.55-2.31 0-4.19-1.88-4.19-4.19s1.88-4.19 4.19-4.19c.69 0 1.38.18 1.98.52l-1.01 1.75c-.29-.16-.62-.25-.97-.25-1.15 0-2.08.93-2.08 2.08s.93 2.08 2.08 2.08c.38 0 .73-.1 1.03-.28l1 1.93z" fill="#5c6bc0"/></svg>
+        C
       </div>
  
-      <div class="lp">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect width="20" height="20" rx="4" fill="#86efac" opacity=".1"/>
-          <path d="M3.5 13l4-4-4-4M10 13h6.5" stroke="#86efac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="ln">Python</span>
+      <div class="pill pl">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#5ee8ce" opacity=".1"/><path d="M11.914 2C8.29 2 8.538 3.587 8.538 3.587l.004 1.644h3.436v.494H6.953S4.5 5.46 4.5 9.12s2.152 3.527 2.152 3.527h1.283v-1.696s-.069-2.152 2.118-2.152h3.648s2.05.033 2.05-1.981V4.047S16.082 2 11.914 2zm-2.02 1.162a.664.664 0 1 1 0 1.327.664.664 0 0 1 0-1.327z" fill="#3776ab"/><path d="M12.086 22c3.624 0 3.376-1.587 3.376-1.587l-.004-1.644h-3.436v-.494h5.025S19.5 18.54 19.5 14.88s-2.152-3.527-2.152-3.527h-1.283v1.696s.069 2.152-2.118 2.152H10.3s-2.05-.033-2.05 1.981v3.325S7.918 22 12.086 22zm2.02-1.162a.664.664 0 1 1 0-1.328.664.664 0 0 1 0 1.328z" fill="#ffd43b"/></svg>
+        Python
       </div>
  
-      <div class="lp">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect width="20" height="20" rx="4" fill="#facc15" opacity=".14"/>
-          <text x="1.5" y="14.5" font-size="10" font-weight="600" fill="#ca8a04" font-family="monospace">JS</text>
-        </svg>
-        <span class="ln">JavaScript</span>
+      <div class="pill pl">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#f7df1e" opacity=".13"/><path d="M16.81 18.47c.48.78 1.11 1.36 2.21 1.36 1.33 0 2.18-.67 2.18-1.58 0-1.1-.87-1.49-2.34-2.13l-.8-.34c-2.32-.99-3.86-2.22-3.86-4.83 0-2.41 1.83-4.24 4.7-4.24 2.04 0 3.5.71 4.56 2.57l-2.5 1.6c-.55-.98-1.14-1.37-2.06-1.37-.94 0-1.53.6-1.53 1.37 0 .96.59 1.35 1.96 1.94l.8.34c2.73 1.17 4.27 2.36 4.27 5.04 0 2.89-2.27 4.47-5.32 4.47-2.98 0-4.91-1.42-5.85-3.29l2.57-1.48z" fill="#f7df1e"/><path d="M7.915 18.74c.35.58.67 1.06 1.43 1.06.73 0 1.19-.28 1.19-1.39V6.5h3.16v11.95c0 2.3-1.35 3.34-3.31 3.34-1.77 0-2.8-.92-3.33-2.02L7.915 18.74z" fill="#f7df1e"/></svg>
+        JavaScript
       </div>
  
     </div>
   </div>
  
-  <div class="skills-block reveal" style="transition-delay:.2s">
-    <div class="sk-label">Tools &amp; Software</div>
-    <div class="sk-grid">
+  <!-- Tools -->
+  <div class="skblock reveal" style="transition-delay:.25s">
+    <p class="skcat">Tools &amp; Platforms</p>
+    <div class="pills">
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(249,115,22,.07);border-color:rgba(249,115,22,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <circle cx="7.5" cy="7.5" r="4.5" fill="#f97316" opacity=".8"/>
-            <circle cx="14.5" cy="7.5" r="4.5" fill="#f97316" opacity=".4"/>
-            <circle cx="7.5" cy="14.5" r="4.5" fill="#f97316" opacity=".4"/>
-            <rect x="11" y="11" width="9" height="9" rx="2" fill="#f97316" opacity=".75"/>
-          </svg>
-        </div>
-        <span class="sk-name">Figma</span>
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#f6ad55" opacity=".1"/><path d="M12 4a8 8 0 1 0 0 16A8 8 0 0 0 12 4zm0 2.5a5.5 5.5 0 0 1 4.33 8.91L7.09 7.67A5.48 5.48 0 0 1 12 6.5zm0 11a5.5 5.5 0 0 1-4.33-8.91l9.24 9.24A5.48 5.48 0 0 1 12 17.5z" fill="#f6ad55"/></svg>
+        Cadence Tool
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="2" y="2" width="18" height="18" rx="4" fill="#ef4444" opacity=".12"/>
-            <text x="3.5" y="16" font-size="11" font-weight="700" fill="#ef4444" font-family="sans-serif">Ai</text>
-          </svg>
-        </div>
-        <span class="sk-name">Adobe</span>
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#00979d" opacity=".12"/><path d="M12 4C7.58 4 4 7.58 4 12s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm-2.5 10H8.3l-1.8-2 1.8-2H9.5l-1.8 2 1.8 2zm5 0h-1.2l-1.8-2 1.8-2h1.2l-1.8 2 1.8 2z" fill="#00979d"/></svg>
+        Arduino IDE
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <circle cx="11" cy="11" r="8.5" stroke="#22c55e" stroke-width="1.4" fill="none"/>
-            <path d="M11 6.5v5l3 1.5" stroke="#22c55e" stroke-width="1.4" stroke-linecap="round"/>
-            <circle cx="11" cy="11" r="1.5" fill="#22c55e"/>
-          </svg>
-        </div>
-        <span class="sk-name">Arduino IDE</span>
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#f24e1e" opacity=".08"/><path d="M8.5 21A2.5 2.5 0 0 0 11 18.5V16H8.5a2.5 2.5 0 0 0 0 5z" fill="#0acf83"/><path d="M6 12a2.5 2.5 0 0 1 2.5-2.5H11v5H8.5A2.5 2.5 0 0 1 6 12z" fill="#a259ff"/><path d="M6 7.5A2.5 2.5 0 0 1 8.5 5H11v5H8.5A2.5 2.5 0 0 1 6 7.5z" fill="#f24e1e"/><path d="M11 5h2.5a2.5 2.5 0 0 1 0 5H11V5z" fill="#ff7262"/><circle cx="15.5" cy="12" r="2.5" fill="#1abcfe"/></svg>
+        Figma
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="2" y="2" width="18" height="18" rx="3.5" stroke="#fbbf24" stroke-width="1.3" fill="none"/>
-            <path d="M6 16l4-4-4-4M12 16h4" stroke="#fbbf24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="sk-name">Cadence Tool</span>
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#ff0000" opacity=".08"/><path d="M14.55 2H21v20l-6.45-8.52V2zM9.45 2H3v20l6.45-8.52V2zM12 9.75L8.13 22h2.83l.98-3.04h4.12L17.04 22h2.83L12 9.75z" fill="#ff4444" opacity=".85"/></svg>
+        Adobe
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(126,184,247,.07);border-color:rgba(126,184,247,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="2" y="5" width="18" height="12" rx="2.5" stroke="#7eb8f7" stroke-width="1.3" fill="none"/>
-            <path d="M6 11h10M11 8.5v5" stroke="#7eb8f7" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <span class="sk-name">Proteus</span>
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#5ee8ce" opacity=".1"/><rect x="4" y="8" width="16" height="8" rx="2" stroke="#5ee8ce" stroke-width="1.4" fill="none"/><circle cx="8" cy="12" r="1.1" fill="#5ee8ce"/><circle cx="12" cy="12" r="1.1" fill="#5ee8ce"/><circle cx="16" cy="12" r="1.1" fill="#5ee8ce"/><path d="M8 8V5M12 8V5M16 8V5M8 16v3M12 16v3M16 16v3" stroke="#5ee8ce" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Proteus
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(196,168,255,.08);border-color:rgba(196,168,255,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <circle cx="11" cy="11" r="8.5" fill="#c4a8ff" opacity=".1" stroke="#c4a8ff" stroke-width="1.2"/>
-            <path d="M7 15l4-4-4-4M11 15h4" stroke="#c4a8ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="sk-name">Eclipse IDE</span>
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#2c2255" opacity=".18"/><ellipse cx="11" cy="12" rx="7" ry="4.5" stroke="#f7941e" stroke-width="1.4" fill="none"/><path d="M4 9.5h14" stroke="#f7941e" stroke-width="1.4" stroke-linecap="round"/><path d="M4 14.5h14" stroke="#f7941e" stroke-width="1.4" stroke-linecap="round" opacity=".45"/></svg>
+        Eclipse IDE
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(249,115,22,.07);border-color:rgba(249,115,22,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="2" y="2" width="18" height="18" rx="3.5" fill="#f97316" opacity=".1"/>
-            <path d="M6 11l3-3 3 3 3-3" stroke="#f97316" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6 15h10" stroke="#f97316" stroke-width="1.3" stroke-linecap="round" opacity=".45"/>
-          </svg>
-        </div>
-        <span class="sk-name">IntelliJ IDEA</span>
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#000" opacity=".25"/><rect x="3" y="3" width="18" height="18" rx="3" fill="url(#ig)"/><defs><linearGradient id="ig" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#fc801d"/><stop offset="50%" stop-color="#f0348c"/><stop offset="100%" stop-color="#7655f3"/></linearGradient></defs><rect x="6" y="16" width="7" height="2" rx="1" fill="white"/><path d="M7 8h2v6H7zM11 8l3 3-3 3h2.5l3-3-3-3H11z" fill="white"/></svg>
+        IntelliJ IDEA
       </div>
  
-      <div class="sk">
-        <div class="sk-ico" style="background:rgba(93,232,214,.07);border-color:rgba(93,232,214,.15)">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <rect x="2" y="6" width="18" height="11" rx="2" stroke="#5de8d6" stroke-width="1.3" fill="none"/>
-            <path d="M6 10.5h10M6 13.5h6" stroke="#5de8d6" stroke-width="1.3" stroke-linecap="round"/>
-            <circle cx="18" cy="7" r="3.5" fill="#5de8d6" opacity=".2" stroke="#5de8d6" stroke-width="1.1"/>
-            <path d="M16.8 7l.8.8 1.6-1.6" stroke="#5de8d6" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="sk-name">PCB Manufacturing</span>
+      <div class="pill">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="5" fill="#48bb78" opacity=".1"/><rect x="3" y="5" width="18" height="14" rx="2" stroke="#48bb78" stroke-width="1.4" fill="none"/><circle cx="8" cy="9.5" r="1.1" fill="#48bb78"/><circle cx="12" cy="9.5" r="1.1" fill="#48bb78"/><circle cx="16" cy="9.5" r="1.1" fill="#48bb78"/><circle cx="8" cy="14.5" r="1.1" fill="#48bb78" opacity=".5"/><circle cx="12" cy="14.5" r="1.1" fill="#48bb78" opacity=".5"/><circle cx="16" cy="14.5" r="1.1" fill="#48bb78" opacity=".5"/><path d="M8 3v2M12 3v2M16 3v2M8 19v2M12 19v2M16 19v2" stroke="#48bb78" stroke-width="1.4" stroke-linecap="round"/></svg>
+        PCB Manufacturing
       </div>
  
     </div>
   </div>
 </section>
  
-<!-- ══════ PROJECTS ══════ -->
+<!-- ══ PROJECTS ══ -->
 <section id="projects">
-  <div class="s-head reveal">
-    <span class="s-tag">Work</span>
-    <div class="s-line"></div>
-    <h2>Projects</h2>
-  </div>
-  <div class="float-grid">
-    <div class="fcard reveal">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="10" r="3" fill="#7eb8f7"/>
-          <path d="M10 2v3M10 15v3M2 10h3M15 10h3" stroke="#7eb8f7" stroke-width="1.4" stroke-linecap="round"/>
-          <path d="M4.4 4.4l2.1 2.1M13.5 13.5l2.1 2.1M4.4 15.6l2.1-2.1M13.5 6.5l2.1-2.1" stroke="#7eb8f7" stroke-width="1.1" stroke-linecap="round" opacity=".5"/>
-        </svg>
-      </div>
-      <h3>LoRa Weather Monitoring</h3>
-      <p>Long-range wireless sensor system for real-time environmental data acquisition and telemetry.</p>
-    </div>
-    <div class="fcard reveal" style="transition-delay:.1s">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M10 2L2 6l8 4 8-4-8-4z" fill="#86efac" opacity=".8"/>
-          <path d="M2 14l8 4 8-4M2 10l8 4 8-4" stroke="#86efac" stroke-width="1.4" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h3>Spring Boot Backend</h3>
-      <p>Scalable REST API development using Spring Boot with clean architecture and service layers.</p>
-    </div>
+  <div class="sh reveal"><span class="sl">Work</span><div class="sdiv"></div><h2>Projects</h2></div>
+  <div class="grid">
+    <div class="card reveal"><div class="ci">📡</div><h3>LoRa Weather Monitoring</h3><p>Long-range wireless sensor system for real-time environmental data acquisition and telemetry.</p></div>
+    <div class="card reveal" style="transition-delay:.1s"><div class="ci">⚙️</div><h3>Spring Boot Backend</h3><p>Scalable REST API development using Spring Boot with clean architecture and service layers.</p></div>
   </div>
 </section>
  
-<!-- ══════ INTERNSHIPS ══════ -->
+<!-- ══ INTERNSHIPS ══ -->
 <section id="intern">
-  <div class="s-head reveal">
-    <span class="s-tag">Experience</span>
-    <div class="s-line"></div>
-    <h2>Internships</h2>
-  </div>
-  <div class="float-grid">
-    <div class="fcard reveal">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M10 2a8 8 0 1 0 0 16A8 8 0 0 0 10 2z" stroke="#fbbf24" stroke-width="1.3" fill="none"/>
-          <path d="M10 6v5l3 1.5" stroke="#fbbf24" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h3>Lumens Internship</h3>
-      <p>Hands-on exposure to embedded systems and industry-grade electronics design.</p>
-    </div>
-    <div class="fcard reveal" style="transition-delay:.1s">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect x="2" y="4" width="16" height="12" rx="2.5" stroke="#5de8d6" stroke-width="1.3" fill="none"/>
-          <path d="M6 10h8M10 7v6" stroke="#5de8d6" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h3>IoT &amp; PCB Design</h3>
-      <p>Circuit design, PCB layout, and IoT integration for smart device prototyping.</p>
-    </div>
-    <div class="fcard reveal" style="transition-delay:.2s">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect x="2" y="2" width="16" height="16" rx="3" stroke="#c4a8ff" stroke-width="1.3" fill="none"/>
-          <path d="M5 14l4-4-4-4M11 14h4" stroke="#c4a8ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h3>Cadence Training</h3>
-      <p>Industry EDA tool training for schematic capture and simulation workflows.</p>
-    </div>
+  <div class="sh reveal"><span class="sl">Experience</span><div class="sdiv"></div><h2>Internships</h2></div>
+  <div class="grid">
+    <div class="card reveal"><div class="ci">💡</div><h3>Lumens Internship</h3><p>Hands-on exposure to embedded systems and industry-grade electronics design.</p></div>
+    <div class="card reveal" style="transition-delay:.1s"><div class="ci">🔌</div><h3>IoT &amp; PCB Design</h3><p>Circuit design, PCB layout, and IoT integration for smart device prototyping.</p></div>
+    <div class="card reveal" style="transition-delay:.2s"><div class="ci">🖥️</div><h3>Cadence Training</h3><p>Industry EDA tool training for schematic capture and simulation workflows.</p></div>
   </div>
 </section>
  
-<!-- ══════ CERTIFICATES ══════ -->
+<!-- ══ CERTIFICATES ══ -->
 <section id="cert">
-  <div class="s-head reveal">
-    <span class="s-tag">Credentials</span>
-    <div class="s-line"></div>
-    <h2>Certificates</h2>
-  </div>
-  <div class="float-grid">
-    <div class="fcard cert-card reveal" onclick="openImg('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png')">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect x="3" y="2" width="14" height="16" rx="2.5" stroke="#7eb8f7" stroke-width="1.3" fill="none"/>
-          <path d="M6 7h8M6 10.5h8M6 14h5" stroke="#7eb8f7" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>
-        </svg>
-      </div>
-      <h3>CIT Certificate</h3>
-      <p>Core Information Technology certification awarded upon program completion.</p>
-      <span class="vtag">View Certificate</span>
-    </div>
-    <div class="fcard cert-card reveal" style="transition-delay:.1s" onclick="openImg('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/citcertificate.png')">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect x="3" y="2" width="14" height="16" rx="2.5" stroke="#5de8d6" stroke-width="1.3" fill="none"/>
-          <path d="M6 7h8M6 10.5h8M6 14h5" stroke="#5de8d6" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>
-        </svg>
-      </div>
-      <h3>CIT Completion</h3>
-      <p>Program completion credential from the CIT training module.</p>
-      <span class="vtag">View Certificate</span>
-    </div>
-    <div class="fcard cert-card reveal" style="transition-delay:.2s" onclick="openImg('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png')">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect x="3" y="2" width="14" height="16" rx="2.5" stroke="#c4a8ff" stroke-width="1.3" fill="none"/>
-          <path d="M6 7h8M6 10.5h8M6 14h5" stroke="#c4a8ff" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>
-        </svg>
-      </div>
-      <h3>RVS Certificate</h3>
-      <p>Recognition of technical proficiency from RVS program participation.</p>
-      <span class="vtag">View Certificate</span>
-    </div>
-    <div class="fcard cert-card reveal" style="transition-delay:.3s" onclick="openImg('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwis.png')">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect x="3" y="2" width="14" height="16" rx="2.5" stroke="#fbbf24" stroke-width="1.3" fill="none"/>
-          <path d="M6 7h8M6 10.5h8M6 14h5" stroke="#fbbf24" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>
-        </svg>
-      </div>
-      <h3>TNWIS Certificate</h3>
-      <p>State-level workshop and innovation summit certification.</p>
-      <span class="vtag">View Certificate</span>
-    </div>
+  <div class="sh reveal"><span class="sl">Credentials</span><div class="sdiv"></div><h2>Certificates</h2></div>
+  <div class="grid">
+    <div class="card reveal" onclick="openImg('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/cit.png')"><div class="ci">📄</div><h3>CIT Certificate</h3><p>Core Information Technology certification awarded upon program completion.</p><span class="vtag">View Certificate</span></div>
+    <div class="card reveal" style="transition-delay:.1s" onclick="openImg('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/citcertificate.png')"><div class="ci">📄</div><h3>CIT Completion</h3><p>Program completion credential from the CIT training module.</p><span class="vtag">View Certificate</span></div>
+    <div class="card reveal" style="transition-delay:.2s" onclick="openImg('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png')"><div class="ci">📄</div><h3>RVS Certificate</h3><p>Recognition of technical proficiency from RVS program participation.</p><span class="vtag">View Certificate</span></div>
+    <div class="card reveal" style="transition-delay:.3s" onclick="openImg('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwis.png')"><div class="ci">📄</div><h3>TNWIS Certificate</h3><p>State-level workshop and innovation summit certification.</p><span class="vtag">View Certificate</span></div>
   </div>
 </section>
  
-<!-- ══════ ACHIEVEMENTS ══════ -->
+<!-- ══ ACHIEVEMENTS ══ -->
 <section id="ach">
-  <div class="s-head reveal">
-    <span class="s-tag">Recognition</span>
-    <div class="s-line"></div>
-    <h2>Achievements</h2>
-  </div>
-  <div class="float-grid">
-    <div class="fcard reveal">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M10 2l2.4 5 5.6.8-4 3.9.9 5.3L10 14.5l-5 2.5.9-5.3-4-3.9 5.6-.8L10 2z" stroke="#fbbf24" stroke-width="1.3" stroke-linejoin="round" fill="rgba(251,191,36,.12)"/>
-        </svg>
-      </div>
-      <h3>NPTEL Certification</h3>
-      <p>Successfully completed NPTEL online course with distinction from IIT faculty.</p>
-    </div>
-    <div class="fcard reveal" style="transition-delay:.1s">
-      <div class="fcard-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="10" r="8" stroke="#5de8d6" stroke-width="1.3" fill="rgba(93,232,214,.07)"/>
-          <path d="M6 10.5l2.5 2.5L14 8" stroke="#5de8d6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <h3>Marathon Finisher</h3>
-      <p>Completed a marathon — a testament to discipline, endurance, and commitment.</p>
-    </div>
+  <div class="sh reveal"><span class="sl">Recognition</span><div class="sdiv"></div><h2>Achievements</h2></div>
+  <div class="grid">
+    <div class="card reveal"><div class="ci">🥇</div><h3>NPTEL Certification</h3><p>Successfully completed NPTEL online course with distinction from IIT faculty.</p></div>
+    <div class="card reveal" style="transition-delay:.1s"><div class="ci">🏃</div><h3>Marathon Finisher</h3><p>Completed a marathon — a testament to discipline, endurance, and commitment.</p></div>
   </div>
 </section>
  
-<!-- ══════ CONTACT ══════ -->
+<!-- ══ CONTACT ══ -->
 <section id="contact">
-  <div class="s-head reveal">
-    <span class="s-tag">Reach Out</span>
-    <div class="s-line"></div>
-    <h2>Contact</h2>
-  </div>
-  <div class="ct-grid">
-    <div class="ct reveal">
-      <div class="ct-ico">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="3.5" width="16" height="11" rx="2" stroke="#7eb8f7" stroke-width="1.3" fill="none"/><path d="M1 6l8 5 8-5" stroke="#7eb8f7" stroke-width="1.2" stroke-linecap="round"/></svg>
-      </div>
-      <div class="ct-info">
-        <p>Email</p>
-        <a href="mailto:pmyadhesh@gmail.com">pmyadhesh@gmail.com</a>
-      </div>
-    </div>
-    <div class="ct reveal" style="transition-delay:.08s">
-      <div class="ct-ico">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 3h3l1.5 4-2 1.5a10 10 0 0 0 4 4L11 10.5l4 1.5v3a1 1 0 0 1-1 1C6 16 2 10 2 4a1 1 0 0 1 1-1z" stroke="#5de8d6" stroke-width="1.3" fill="none" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="ct-info">
-        <p>Phone</p>
-        <a href="tel:+916369535634">+91 63695 35634</a>
-      </div>
-    </div>
-    <div class="ct reveal" style="transition-delay:.16s">
-      <div class="ct-ico">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="16" height="16" rx="4" stroke="#c4a8ff" stroke-width="1.3" fill="none"/><path d="M6 13V7M6 5v-.5" stroke="#c4a8ff" stroke-width="1.4" stroke-linecap="round"/><path d="M10 13V10a2 2 0 0 1 4 0v3M10 9.5V7" stroke="#c4a8ff" stroke-width="1.3" stroke-linecap="round"/></svg>
-      </div>
-      <div class="ct-info">
-        <p>LinkedIn</p>
-        <a href="https://linkedin.com/in/your-link" target="_blank">linkedin.com/in/dhesika</a>
-      </div>
-    </div>
-    <div class="ct reveal" style="transition-delay:.24s">
-      <div class="ct-ico">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1C4.6 1 1 4.7 1 9.2c0 3.6 2.3 6.7 5.5 7.8.4.1.5-.2.5-.4v-1.3c-2.2.5-2.7-1.1-2.7-1.1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.2-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.6 7.6 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.5 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.2 0 3.1-1.9 3.8-3.7 4 .3.3.5.8.5 1.6V17c0 .2.1.5.5.4C13.7 15.9 16 12.8 16 9.2 16 4.7 13.4 1 9 1z" fill="#7eb8f7" opacity=".7"/></svg>
-      </div>
-      <div class="ct-info">
-        <p>GitHub</p>
-        <a href="https://github.com/yourusername" target="_blank">github.com/dhesika</a>
-      </div>
-    </div>
-    <div class="ct reveal" style="transition-delay:.32s">
-      <div class="ct-ico">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="16" height="16" rx="3" stroke="#fbbf24" stroke-width="1.3" fill="none"/><path d="M5 13l3.5-3.5L5 6M9.5 13h3.5" stroke="#fbbf24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="ct-info">
-        <p>LeetCode</p>
-        <a href="https://leetcode.com/u/dhesika_24/" target="_blank">leetcode.com/dhesika_24</a>
-      </div>
-    </div>
+  <div class="sh reveal"><span class="sl">Reach Out</span><div class="sdiv"></div><h2>Contact</h2></div>
+  <div class="cgrid">
+    <div class="citem reveal"><div class="cico">✉️</div><div class="cinfo"><p>Email</p><a href="mailto:pmyadhesh@gmail.com">pmyadhesh@gmail.com</a></div></div>
+    <div class="citem reveal" style="transition-delay:.08s"><div class="cico">📞</div><div class="cinfo"><p>Phone</p><a href="tel:+916369535634">+91 63695 35634</a></div></div>
+    <div class="citem reveal" style="transition-delay:.16s"><div class="cico">💼</div><div class="cinfo"><p>LinkedIn</p><a href="https://linkedin.com/in/your-link" target="_blank">linkedin.com/in/dhesika</a></div></div>
+    <div class="citem reveal" style="transition-delay:.24s"><div class="cico">🐙</div><div class="cinfo"><p>GitHub</p><a href="https://github.com/yourusername" target="_blank">github.com/dhesika</a></div></div>
+    <div class="citem reveal" style="transition-delay:.32s"><div class="cico">🧩</div><div class="cinfo"><p>LeetCode</p><a href="https://leetcode.com/u/dhesika_24/" target="_blank">leetcode.com/dhesika_24</a></div></div>
   </div>
 </section>
  
 <footer>© 2025 Dhesika P.M. &nbsp;·&nbsp; Electronics &amp; Communication Engineering</footer>
  
-<!-- POPUP -->
-<div id="pop" onclick="closeImg()">
-  <span class="pcl" onclick="closeImg()">✕</span>
-  <img id="pimg" alt="Certificate">
+<div id="popup" onclick="closeImg()">
+  <span class="pcls" onclick="closeImg()">✕</span>
+  <img id="pi" alt="Certificate">
 </div>
  
 <script>
-/* ── CURSOR ── */
-const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
-let mx=0,my=0,ox=0,oy=0;
+/* ── CURSOR (diamond) ── */
+const cd=document.getElementById('cd'),ct=document.getElementById('ct');
+let mx=0,my=0,tx=0,ty=0;
 window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-const hovEls=document.querySelectorAll('a,.fcard,.sk,.lp,.ct,.cert-card,.pcl');
-hovEls.forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('h'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('h'));
+document.querySelectorAll('a,.card,.citem,.pill,.edu-card,.pcls').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
 });
-(function ac(){
-  ox+=(mx-ox)*.1;oy+=(my-oy)*.1;
-  cur.style.left=ox+'px';cur.style.top=oy+'px';
-  cur2.style.left=mx+'px';cur2.style.top=my+'px';
-  requestAnimationFrame(ac);
+(function loop(){
+  tx+=(mx-tx)*.14;ty+=(my-ty)*.14;
+  ct.style.left=tx+'px';ct.style.top=ty+'px';
+  cd.style.left=mx+'px';cd.style.top=my+'px';
+  requestAnimationFrame(loop);
 })();
  
 /* ── TYPING ── */
 const nm='DHESIKA P.M.';
-const ne=document.getElementById('tn'),te=document.getElementById('tc');
+const tnEl=document.getElementById('tn'),tbEl=document.getElementById('tb');
 let i=0;
-function t(){
-  if(i<nm.length){ne.textContent+=nm[i++];setTimeout(t,i===1?600:85)}
-  else setTimeout(()=>{te.style.display='none'},1800);
+function type(){
+  if(i<nm.length){tnEl.textContent+=nm[i++];setTimeout(type,i===1?800:88)}
+  else setTimeout(()=>tbEl.style.display='none',2200);
 }
-setTimeout(t,800);
+setTimeout(type,900);
  
 /* ── NAV ── */
-window.addEventListener('scroll',()=>{
-  document.querySelector('nav').style.background=
-    scrollY>20?'rgba(5,8,15,0.85)':'rgba(5,8,15,0.7)';
-});
+window.addEventListener('scroll',()=>document.getElementById('nb').style.boxShadow=scrollY>20?'0 4px 28px rgba(0,0,0,.4)':'');
  
 /* ── POPUP ── */
-function openImg(s){
-  document.getElementById('pimg').src=s;
-  const p=document.getElementById('pop');
-  p.style.display='flex';p.classList.add('on');
-}
-function closeImg(){
-  const p=document.getElementById('pop');
-  p.style.display='none';p.classList.remove('on');
-}
+function openImg(s){document.getElementById('pi').src=s;const p=document.getElementById('popup');p.style.display='flex';p.classList.add('on')}
+function closeImg(){const p=document.getElementById('popup');p.style.display='none';p.classList.remove('on')}
  
 /* ── REVEAL ── */
-const ro=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}});
-},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');observer.unobserve(e.target)}})},{threshold:.1})
+const observer=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis')}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
  
-/* ══ BACKGROUND ══ */
-const cv=document.getElementById('bgc'),cx=cv.getContext('2d');
-function rs(){cv.width=innerWidth;cv.height=innerHeight}rs();
-window.addEventListener('resize',rs);
+/* ── BACKGROUND — soft floating orbs only ── */
+const cv=document.getElementById('c'),cx=cv.getContext('2d');
+function rsz(){cv.width=innerWidth;cv.height=innerHeight}rsz();
+window.addEventListener('resize',rsz);
  
 /* orbs */
 const orbs=[
-  {x:.15,y:.2,r:280,c:'rgba(126,184,247,'},
-  {x:.85,y:.35,r:220,c:'rgba(93,232,214,'},
-  {x:.5,y:.75,r:200,c:'rgba(196,168,255,'},
+  {x:.18,y:.22,r:.28,c:'rgba(126,200,240,',spd:.00018,ph:0},
+  {x:.82,y:.65,r:.24,c:'rgba(94,232,206,', spd:.00014,ph:2.1},
+  {x:.55,y:.88,r:.18,c:'rgba(179,157,250,',spd:.00022,ph:4.5},
+  {x:.08,y:.75,r:.14,c:'rgba(126,200,240,',spd:.00016,ph:1.3},
+  {x:.92,y:.18,r:.16,c:'rgba(94,232,206,', spd:.0002, ph:3.7},
 ];
  
-/* stars */
-const ST=[];
-for(let k=0;k<120;k++)ST.push({
-  x:Math.random(),y:Math.random(),
-  s:Math.random()*1.2+.2,
-  a:Math.random()*.7+.1,
-  sp:Math.random()*.0003+.0001,
-  ph:Math.random()*Math.PI*2
-});
+/* drifting particles */
+const pts=Array.from({length:36},()=>({
+  x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+  vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,
+  r:Math.random()*1.2+.4,
+  phase:Math.random()*Math.PI*2
+}));
  
-/* meteors */
-let meteors=[];
-setInterval(()=>{
-  if(meteors.length<3) meteors.push({
-    x:Math.random()*cv.width,y:-20,
-    len:Math.random()*100+60,
-    spd:Math.random()*4+3,
-    a:Math.PI/5+Math.random()*.3,
-    life:0,max:50
-  });
-},1800);
+let mt={x:-999,y:-999};
+window.addEventListener('mousemove',e=>{mt.x=e.clientX;mt.y=e.clientY});
  
-let mt=0;
-function draw(){
+let t=0;
+(function frame(){
   cx.clearRect(0,0,cv.width,cv.height);
-  mt++;
+  t++;
  
-  /* radial orbs */
+  /* orbs */
   orbs.forEach(o=>{
-    const px=o.x*cv.width,py=o.y*cv.height;
-    const g=cx.createRadialGradient(px,py,0,px,py,o.r);
-    g.addColorStop(0,o.c+'0.055)');
-    g.addColorStop(1,o.c+'0)');
-    cx.beginPath();cx.arc(px,py,o.r,0,Math.PI*2);
-    cx.fillStyle=g;cx.fill();
+    const drift=Math.sin(t*o.spd*1000+o.ph)*cv.height*.04;
+    const ox=o.x*cv.width, oy=o.y*cv.height+drift;
+    const rr=o.r*Math.min(cv.width,cv.height);
+    const g=cx.createRadialGradient(ox,oy,0,ox,oy,rr);
+    const pulse=.04+Math.sin(t*o.spd*800+o.ph)*.015;
+    g.addColorStop(0,o.c+pulse+')');
+    g.addColorStop(1,'transparent');
+    cx.fillStyle=g;cx.fillRect(0,0,cv.width,cv.height);
   });
  
-  /* stars */
-  ST.forEach(s=>{
-    const pulse=Math.sin(mt*s.sp*60+s.ph)*.4+.6;
-    cx.beginPath();
-    cx.arc(s.x*cv.width,s.y*cv.height,s.s,0,Math.PI*2);
-    cx.fillStyle=`rgba(200,220,255,${s.a*pulse})`;
-    cx.fill();
+  /* particles */
+  pts.forEach((p,i)=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>cv.width) p.vx*=-1;
+    if(p.y<0||p.y>cv.height) p.vy*=-1;
+    /* gentle mouse drift */
+    const dx=mt.x-p.x,dy=mt.y-p.y,d=Math.hypot(dx,dy);
+    if(d<120){p.vx+=dx/d*.008;p.vy+=dy/d*.008}
+    /* cap speed */
+    const spd=Math.hypot(p.vx,p.vy);
+    if(spd>.6){p.vx=p.vx/spd*.6;p.vy=p.vy/spd*.6}
+    /* float bob */
+    const bob=Math.sin(t*.018+p.phase)*1.2;
+    const a=.15+Math.sin(t*.012+p.phase)*.06;
+    cx.beginPath();cx.arc(p.x,p.y+bob,p.r,0,Math.PI*2);
+    cx.fillStyle=`rgba(126,200,240,${a})`;cx.fill();
+    /* connections */
+    for(let j=i+1;j<pts.length;j++){
+      const q=pts[j],dd=Math.hypot(p.x-q.x,p.y-q.y);
+      if(dd<100){
+        cx.beginPath();cx.moveTo(p.x,p.y+bob);cx.lineTo(q.x,q.y);
+        cx.strokeStyle=`rgba(126,200,240,${(1-dd/100)*.06})`;
+        cx.lineWidth=.6;cx.stroke();
+      }
+    }
   });
  
-  /* meteors */
-  meteors=meteors.filter(m=>m.life<m.max);
-  meteors.forEach(m=>{
-    m.life++;
-    m.x+=Math.cos(m.a)*m.spd;
-    m.y+=Math.sin(m.a)*m.spd;
-    const fade=1-m.life/m.max;
-    const gm=cx.createLinearGradient(m.x,m.y,m.x-Math.cos(m.a)*m.len,m.y-Math.sin(m.a)*m.len);
-    gm.addColorStop(0,`rgba(180,220,255,${.7*fade})`);
-    gm.addColorStop(1,'transparent');
-    cx.beginPath();cx.moveTo(m.x,m.y);
-    cx.lineTo(m.x-Math.cos(m.a)*m.len,m.y-Math.sin(m.a)*m.len);
-    cx.strokeStyle=gm;cx.lineWidth=1.2;cx.stroke();
-  });
- 
-  requestAnimationFrame(draw);
-}
-draw();
+  requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>
