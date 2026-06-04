@@ -1,435 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Dhesika Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
- 
+<title>Dhesika P.M. — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
- 
+/* ══════════════════════════════════════════
+   ROOT
+══════════════════════════════════════════ */
 :root {
-  --bg:        #f0ede8;
-  --bg2:       #e8e3dc;
-  --surface:   rgba(255,252,248,0.72);
-  --border:    rgba(180,160,130,0.22);
-  --accent:    #7c6a52;
-  --accent2:   #a08060;
-  --ink:       #2c2318;
-  --ink2:      #6b5a46;
-  --ink3:      #9c8870;
-  --glow:      rgba(160,128,96,0.18);
-  --radius:    18px;
+  --bg:      #060d1a;
+  --bg2:     #091324;
+  --surface: rgba(12,24,46,0.75);
+  --border:  rgba(99,179,237,0.16);
+  --accent:  #63b3ed;
+  --accent2: #4fd1c5;
+  --accent3: #a78bfa;
+  --ink:     #e2eaf6;
+  --ink2:    #8baec8;
+  --ink3:    #4a6a8a;
+  --glow:    rgba(99,179,237,0.22);
+  --radius:  16px;
 }
  
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
  
-html { scroll-behavior: smooth; }
- 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  overflow-x: hidden;
+body{
+  font-family:'Outfit',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  overflow-x:hidden;
+  cursor:none;
 }
  
-/* ── GRAIN OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.6;
+/* ══════════════════════════════════════════
+   CURSOR  — crosshair + rotating brackets
+══════════════════════════════════════════ */
+#c-outer{
+  position:fixed;width:40px;height:40px;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+}
+#c-outer::before,#c-outer::after{
+  content:'';position:absolute;
+  width:10px;height:10px;
+  border-color:var(--accent);border-style:solid;
+  transition:all .3s;
+}
+#c-outer::before{
+  top:0;left:0;
+  border-width:2px 0 0 2px;
+}
+#c-outer::after{
+  bottom:0;right:0;
+  border-width:0 2px 2px 0;
 }
  
-/* ── CANVAS ── */
-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+#c-inner{
+  position:fixed;width:6px;height:6px;
+  background:var(--accent2);border-radius:50%;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:transform .08s;
+  box-shadow:0 0 8px var(--accent2);
 }
  
-/* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 36px;
-  padding: 18px 40px;
-  background: rgba(240,237,232,0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  z-index: 1000;
-  transition: box-shadow 0.4s;
+body.hovering #c-outer::before,
+body.hovering #c-outer::after{
+  width:14px;height:14px;border-color:var(--accent2);
+}
+body.hovering #c-inner{
+  transform:translate(-50%,-50%) scale(2);
+  background:var(--accent3);
 }
  
-nav.scrolled {
-  box-shadow: 0 4px 28px rgba(100,80,50,0.08);
+/* ══════════════════════════════════════════
+   CANVAS BG
+══════════════════════════════════════════ */
+#bgCanvas{
+  position:fixed;inset:0;
+  z-index:0;pointer-events:none;
 }
  
-nav a {
-  text-decoration: none;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink2);
-  position: relative;
-  padding-bottom: 3px;
-  transition: color 0.3s;
+/* ══════════════════════════════════════════
+   NAV
+══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;width:100%;
+  display:flex;justify-content:center;gap:38px;
+  padding:16px 40px;
+  background:rgba(6,13,26,0.78);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  z-index:1000;
+  transition:box-shadow .4s;
+}
+nav.scrolled{box-shadow:0 4px 32px rgba(0,0,0,.5)}
+nav a{
+  text-decoration:none;font-size:12px;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink2);position:relative;padding-bottom:4px;
+  transition:color .3s;cursor:none;
+}
+nav a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1.5px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:width .35s ease;border-radius:2px;
+}
+nav a:hover{color:var(--accent)}
+nav a:hover::after{width:100%}
+ 
+/* ══════════════════════════════════════════
+   HERO — centred
+══════════════════════════════════════════ */
+.hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:130px 40px 70px;
+  gap:20px;
 }
  
-nav a::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 0; height: 1px;
-  background: var(--accent);
-  transition: width 0.3s ease;
+.hero-label{
+  font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink3);
+  animation:fadeUp .9s ease both;
 }
  
-nav a:hover { color: var(--accent); }
-nav a:hover::after { width: 100%; }
- 
-/* ── HERO ── */
-.hero {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 120px 60px 60px;
-  gap: 60px;
-  flex-wrap: wrap;
+/* ── Profile ring ── */
+.profile-wrap{
+  position:relative;width:210px;height:210px;
+  margin:0 auto;
+  animation:fadeUp .9s .1s ease both;
+  cursor:none;
 }
  
-.hero-text {
-  flex: 1;
-  min-width: 280px;
-  animation: fadeUp 1s ease both;
+.profile-wrap img{
+  width:210px;height:210px;border-radius:50%;
+  object-fit:cover;display:block;
+  position:relative;z-index:2;
+  border:2px solid rgba(99,179,237,.35);
 }
  
-.hero-text .label {
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 14px;
+.profile-glow{
+  position:absolute;inset:-20px;border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(99,179,237,.25) 0%,rgba(79,209,197,.12) 45%,transparent 70%);
+  animation:glowPulse 3s ease-in-out infinite;z-index:0;
 }
  
-.hero-text h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(42px, 6vw, 72px);
-  font-weight: 300;
-  color: var(--ink);
-  line-height: 1.05;
-  margin-bottom: 16px;
-  letter-spacing: -0.01em;
+.lr1,.lr2,.lr3{
+  position:absolute;inset:0;border-radius:50%;border:2px solid transparent;
+}
+.lr1{
+  border-top-color:var(--accent);border-right-color:var(--accent2);
+  animation:spinR 2.4s linear infinite;
+  inset:-8px;
+}
+.lr2{
+  border-bottom-color:var(--accent3);border-left-color:var(--accent);
+  animation:spinR 3.6s linear infinite reverse;
+  inset:-14px;border-width:1.5px;
+}
+.lr3{
+  border-top-color:var(--accent2);
+  animation:spinR 5s linear infinite;
+  inset:-20px;border-width:1px;opacity:.5;
 }
  
-.hero-text h1 span {
-  color: var(--accent);
-  font-style: italic;
+@keyframes spinR{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes glowPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.09)}}
+ 
+/* ── Name ── */
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,6vw,66px);
+  font-weight:700;color:var(--ink);
+  letter-spacing:.02em;line-height:1.1;
+  animation:fadeUp .9s .2s ease both;
+  min-height:1.2em;
+}
+.typed-name{
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 55%,var(--accent3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.cursor-blink{
+  display:inline-block;width:3px;
+  background:var(--accent2);
+  animation:blink .75s step-end infinite;
+  margin-left:3px;vertical-align:baseline;border-radius:2px;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+ 
+/* ── Roles ticker ── */
+.roles-wrap{
+  font-size:15px;font-weight:500;
+  color:var(--accent2);
+  letter-spacing:.06em;
+  height:24px;overflow:hidden;
+  animation:fadeUp .9s .3s ease both;
+}
+.roles-inner{
+  display:flex;flex-direction:column;
+  animation:roleScroll 8s steps(4,end) infinite;
+}
+.roles-inner span{height:24px;line-height:24px;white-space:nowrap}
+ 
+@keyframes roleScroll{
+  0%   {transform:translateY(0)}
+  25%  {transform:translateY(-24px)}
+  50%  {transform:translateY(-48px)}
+  75%  {transform:translateY(-72px)}
+  100% {transform:translateY(0)}
 }
  
-.hero-text .sub {
-  font-size: 15px;
-  color: var(--ink2);
-  font-weight: 300;
-  margin-bottom: 32px;
-  line-height: 1.7;
-  max-width: 380px;
+.hero .dept{
+  font-size:14px;color:var(--ink2);letter-spacing:.05em;
+  animation:fadeUp .9s .35s ease both;
 }
  
-.social {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+.hero .summary{
+  font-size:13.5px;color:var(--ink3);
+  max-width:500px;line-height:1.78;
+  animation:fadeUp .9s .42s ease both;
 }
  
-.social a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--accent);
-  border: 1px solid var(--accent2);
-  padding: 10px 22px;
-  border-radius: 100px;
-  transition: background 0.3s, color 0.3s, transform 0.25s;
+/* ── Social buttons ── */
+.social{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .9s .5s ease both;
+}
+.social a{
+  display:inline-flex;align-items:center;gap:7px;
+  text-decoration:none;font-size:12.5px;font-weight:500;
+  letter-spacing:.07em;color:var(--accent);
+  border:1px solid rgba(99,179,237,.3);
+  padding:9px 20px;border-radius:100px;
+  transition:background .3s,color .3s,transform .25s,box-shadow .3s;
+  cursor:none;background:rgba(99,179,237,.05);
+}
+.social a:hover{
+  background:var(--accent);color:#fff;
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(99,179,237,.35);
 }
  
-.social a:hover {
-  background: var(--accent);
-  color: #fff;
-  transform: translateY(-2px);
+/* ══════════════════════════════════════════
+   EDUCATION SECTION
+══════════════════════════════════════════ */
+.edu-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:30px 28px;
+  backdrop-filter:blur(14px);
+  position:relative;overflow:hidden;
+}
+.edu-card::before{
+  content:'';position:absolute;top:0;left:0;
+  width:4px;height:100%;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));
+  border-radius:4px 0 0 4px;
+}
+.edu-card h3{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:600;color:var(--ink);
+  margin-bottom:8px;
+}
+.edu-card .degree{
+  font-size:14px;color:var(--ink2);margin-bottom:5px;
+}
+.edu-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(99,179,237,.1);
+  border:1px solid rgba(99,179,237,.2);
+  color:var(--accent);
+  font-size:12px;font-weight:500;letter-spacing:.05em;
+  padding:5px 14px;border-radius:100px;
+  margin-top:10px;margin-right:8px;
 }
  
-/* PROFILE IMAGE */
-.hero-image {
-  animation: fadeUp 1s 0.2s ease both;
+/* ══════════════════════════════════════════
+   DIVIDER
+══════════════════════════════════════════ */
+.divider{
+  width:44px;height:1.5px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  opacity:.4;margin:0 14px;
 }
  
-.hero-image img {
-  width: 220px;
-  height: 260px;
-  border-radius: 14px;
-  object-fit: cover;
-  border: 1px solid var(--border);
-  box-shadow:
-    0 20px 60px rgba(100,80,50,0.14),
-    0 4px 12px rgba(100,80,50,0.08);
-  display: block;
+/* ══════════════════════════════════════════
+   SECTIONS
+══════════════════════════════════════════ */
+section{position:relative;z-index:1;padding:88px 60px}
+section:nth-child(even){background:rgba(9,19,36,.5)}
+ 
+.section-header{display:flex;align-items:center;gap:14px;margin-bottom:44px}
+.section-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.section-header h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,3.5vw,40px);font-weight:400;color:var(--ink);
 }
  
-/* ── DIVIDER ── */
-.divider {
-  width: 60px;
-  height: 1px;
-  background: var(--accent2);
-  margin: 0 40px 0;
-  opacity: 0.4;
+/* ══════════════════════════════════════════
+   GRID + CARDS
+══════════════════════════════════════════ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+ 
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:26px 24px;cursor:none;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(12px);
+  transition:transform .35s cubic-bezier(.22,.68,0,1.2),
+             box-shadow .35s ease,border-color .3s;
+}
+.card::after{
+  content:'';position:absolute;top:0;left:-100%;
+  width:60%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(99,179,237,.07),transparent);
+  transition:left .5s ease;
+}
+.card:hover{
+  transform:translateY(-6px) scale(1.015);
+  border-color:rgba(99,179,237,.38);
+  box-shadow:0 16px 44px rgba(0,0,0,.35),0 0 22px var(--glow);
+}
+.card:hover::after{left:140%}
+ 
+.card-icon{font-size:22px;margin-bottom:12px}
+.card h3{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:500;color:var(--ink);margin-bottom:7px;
+}
+.card p{font-size:13px;color:var(--ink3);line-height:1.65}
+ 
+.view-tag{
+  display:inline-block;margin-top:14px;font-size:11px;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;
+}
+.cert-card:hover .view-tag::after{content:' →'}
+ 
+/* ══════════════════════════════════════════
+   CONTACT SECTION
+══════════════════════════════════════════ */
+.contact-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;
+}
+.contact-item{
+  display:flex;align-items:center;gap:16px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px 22px;
+  backdrop-filter:blur(12px);
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+  cursor:none;
+}
+.contact-item:hover{
+  transform:translateY(-4px);
+  border-color:rgba(99,179,237,.4);
+  box-shadow:0 12px 32px rgba(0,0,0,.3);
+}
+.contact-icon{
+  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+  background:rgba(99,179,237,.1);
+}
+.contact-info p{font-size:11px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.contact-info a,
+.contact-info span{
+  font-size:14px;color:var(--ink);font-weight:400;
+  text-decoration:none;transition:color .2s;
+}
+.contact-info a:hover{color:var(--accent)}
+ 
+/* ══════════════════════════════════════════
+   POPUP
+══════════════════════════════════════════ */
+#popup{
+  display:none;position:fixed;inset:0;
+  background:rgba(2,6,14,.92);
+  justify-content:center;align-items:center;
+  z-index:9999;backdrop-filter:blur(14px);
+}
+#popup.active{display:flex;animation:fadeIn .3s ease}
+#popup img{
+  max-width:82%;max-height:82%;border-radius:12px;
+  box-shadow:0 30px 80px rgba(0,0,0,.7);
+  animation:scaleIn .35s cubic-bezier(.22,.68,0,1.2);
+}
+.popup-close{
+  position:absolute;top:24px;right:32px;
+  color:rgba(255,255,255,.55);font-size:26px;
+  cursor:none;transition:color .2s;line-height:1;
+}
+.popup-close:hover{color:#fff}
+ 
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{
+  position:relative;z-index:1;text-align:center;
+  padding:34px;
+  border-top:1px solid var(--border);
+  font-size:12px;color:var(--ink3);letter-spacing:.08em;
 }
  
-/* ── SECTION ── */
-section {
-  position: relative;
-  z-index: 1;
-  padding: 90px 60px;
+/* ══════════════════════════════════════════
+   ANIMATIONS / REVEAL
+══════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:scale(1)}}
+ 
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+ 
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:680px){
+  .hero{padding:100px 24px 50px}
+  section{padding:70px 24px}
+  nav{gap:16px;padding:14px 16px}
+  nav a{font-size:10.5px}
 }
- 
-section:nth-child(even) {
-  background: rgba(232,227,220,0.45);
-}
- 
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-bottom: 48px;
-}
- 
-.section-label {
-  font-size: 10.5px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  font-weight: 500;
-}
- 
-.section-header h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px, 4vw, 42px);
-  font-weight: 400;
-  color: var(--ink);
-}
- 
-/* ── GRID ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
-}
- 
-/* ── CARD ── */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 26px 24px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.35s cubic-bezier(.22,.68,0,1.2),
-              box-shadow 0.35s ease,
-              border-color 0.3s;
-  backdrop-filter: blur(10px);
-}
- 
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(160,128,96,0.06), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
- 
-.card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 16px 40px var(--glow), 0 4px 12px rgba(100,80,50,0.07);
-  border-color: var(--accent2);
-}
- 
-.card:hover::before { opacity: 1; }
- 
-.card-icon {
-  font-size: 22px;
-  margin-bottom: 12px;
-}
- 
-.card h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
- 
-.card p {
-  font-size: 13px;
-  color: var(--ink3);
-  line-height: 1.6;
-}
- 
-/* CERT CARD */
-.cert-card {
-  cursor: pointer;
-}
- 
-.cert-card .view-tag {
-  display: inline-block;
-  margin-top: 14px;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  font-weight: 500;
-  transition: gap 0.3s;
-}
- 
-.cert-card:hover .view-tag::after {
-  content: ' →';
-}
- 
-/* ── POPUP ── */
-#popup {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(20,15,10,0.88);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  backdrop-filter: blur(8px);
-  animation: fadeIn 0.3s ease;
-}
- 
-#popup.active { display: flex; }
- 
-#popup img {
-  max-width: 82%;
-  max-height: 82%;
-  border-radius: 14px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-  animation: scaleIn 0.35s cubic-bezier(.22,.68,0,1.2);
-}
- 
-.popup-close {
-  position: absolute;
-  top: 24px; right: 32px;
-  color: rgba(255,255,255,0.7);
-  font-size: 28px;
-  cursor: pointer;
-  line-height: 1;
-  transition: color 0.2s;
-}
- 
-.popup-close:hover { color: #fff; }
- 
-/* ── FOOTER ── */
-footer {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 40px;
-  border-top: 1px solid var(--border);
-  font-size: 13px;
-  color: var(--ink3);
-  letter-spacing: 0.06em;
-}
- 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
- 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
- 
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.88); }
-  to   { opacity: 1; transform: scale(1); }
-}
- 
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
- 
-.reveal.visible {
-  opacity: 1;
-  transform: none;
-}
- 
-/* ── RESPONSIVE ── */
-@media (max-width: 680px) {
-  .hero { padding: 100px 28px 50px; gap: 36px; }
-  section { padding: 70px 28px; }
-  nav { gap: 18px; padding: 16px 20px; }
-  nav a { font-size: 11.5px; }
-}
- 
 </style>
 </head>
 <body>
  
-<canvas id="network"></canvas>
+<!-- CURSOR -->
+<div id="c-outer"></div>
+<div id="c-inner"></div>
+ 
+<!-- BG CANVAS -->
+<canvas id="bgCanvas"></canvas>
  
 <!-- NAV -->
 <nav id="navbar">
   <a href="#home">Home</a>
+  <a href="#education">Education</a>
   <a href="#projects">Projects</a>
   <a href="#intern">Internships</a>
   <a href="#cert">Certificates</a>
   <a href="#ach">Achievements</a>
+  <a href="#contact">Contact</a>
 </nav>
  
-<!-- HERO -->
+<!-- ══════ HERO ══════ -->
 <div class="hero" id="home">
-  <div class="hero-text">
-    <p class="label">Portfolio · ECE Engineer</p>
-    <h1>Dhesika <span>P.M.</span></h1>
-    <p class="sub">Electronics &amp; Communication Engineering — bridging hardware intelligence with software elegance.</p>
-    <div class="social">
-      <a href="https://linkedin.com/in/your-link" target="_blank">
-        ↗ LinkedIn
-      </a>
-      <a href="https://github.com/yourusername" target="_blank">
-        ↗ GitHub
-      </a>
+  <p class="hero-label">Portfolio · ECE Engineer</p>
+ 
+  <div class="profile-wrap">
+    <div class="profile-glow"></div>
+    <div class="lr1"></div>
+    <div class="lr2"></div>
+    <div class="lr3"></div>
+    <img src="profile.jpeg" alt="Dhesika P.M.">
+  </div>
+ 
+  <h1>
+    <span class="typed-name" id="typedName"></span><span class="cursor-blink" id="typeCursor">|</span>
+  </h1>
+ 
+  <!-- Scrolling roles -->
+  <div class="roles-wrap">
+    <div class="roles-inner">
+      <span>UI / UX Developer</span>
+      <span>Backend Developer</span>
+      <span>Embedded Systems</span>
+      <span>PCB Designer</span>
     </div>
   </div>
  
-  <div class="hero-image">
-    <img src="profile.jpeg" alt="Dhesika P.M.">
+  <p class="dept">Electronics &amp; Communication Engineering &nbsp;·&nbsp; KPR Institute of Engineering &amp; Technology</p>
+ 
+  <p class="summary">Motivated ECE student with a strong foundation in embedded systems, PCB design, and IoT-based applications. Experienced in circuit design, sensor interfacing, and real-time data systems.</p>
+ 
+  <div class="social">
+    <a href="https://linkedin.com/in/your-link" target="_blank">↗ LinkedIn</a>
+    <a href="https://github.com/yourusername" target="_blank">↗ GitHub</a>
+    <a href="https://leetcode.com/u/dhesika_24/" target="_blank">↗ LeetCode</a>
   </div>
 </div>
  
-<!-- PROJECTS -->
+<!-- ══════ EDUCATION ══════ -->
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-label">Background</span>
+    <div class="divider"></div>
+    <h2>Education</h2>
+  </div>
+  <div class="reveal">
+    <div class="edu-card">
+      <h3>KPR Institute of Engineering and Technology, Coimbatore</h3>
+      <p class="degree">B.E – Electronics and Communication Engineering</p>
+      <div>
+        <span class="edu-badge">⭐ CGPA: 7.5</span>
+        <span class="edu-badge">🧩 Minors: Software Development Engineering</span>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ══════ PROJECTS ══════ -->
 <section id="projects">
   <div class="section-header reveal">
     <span class="section-label">Work</span>
@@ -442,7 +524,7 @@ footer {
       <h3>LoRa Weather Monitoring</h3>
       <p>Long-range wireless sensor system for real-time environmental data acquisition and telemetry.</p>
     </div>
-    <div class="card reveal" style="transition-delay:0.1s">
+    <div class="card reveal" style="transition-delay:.1s">
       <div class="card-icon">⚙️</div>
       <h3>Spring Boot Backend</h3>
       <p>Scalable REST API development using Spring Boot with clean architecture and service layers.</p>
@@ -450,7 +532,7 @@ footer {
   </div>
 </section>
  
-<!-- INTERNSHIPS -->
+<!-- ══════ INTERNSHIPS ══════ -->
 <section id="intern">
   <div class="section-header reveal">
     <span class="section-label">Experience</span>
@@ -463,12 +545,12 @@ footer {
       <h3>Lumens Internship</h3>
       <p>Hands-on exposure to embedded systems and industry-grade electronics design.</p>
     </div>
-    <div class="card reveal" style="transition-delay:0.1s">
+    <div class="card reveal" style="transition-delay:.1s">
       <div class="card-icon">🔌</div>
       <h3>IoT &amp; PCB Design</h3>
       <p>Circuit design, PCB layout, and IoT integration for smart device prototyping.</p>
     </div>
-    <div class="card reveal" style="transition-delay:0.2s">
+    <div class="card reveal" style="transition-delay:.2s">
       <div class="card-icon">🖥️</div>
       <h3>Cadence Training</h3>
       <p>Industry EDA tool training for schematic capture and simulation workflows.</p>
@@ -476,7 +558,7 @@ footer {
   </div>
 </section>
  
-<!-- CERTIFICATES -->
+<!-- ══════ CERTIFICATES ══════ -->
 <section id="cert">
   <div class="section-header reveal">
     <span class="section-label">Credentials</span>
@@ -490,19 +572,19 @@ footer {
       <p>Core Information Technology certification awarded upon program completion.</p>
       <span class="view-tag">View Certificate</span>
     </div>
-    <div class="card cert-card reveal" style="transition-delay:0.1s" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/citcertificate.png')">
+    <div class="card cert-card reveal" style="transition-delay:.1s" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/citcertificate.png')">
       <div class="card-icon">📄</div>
       <h3>CIT Completion</h3>
       <p>Program completion credential from the CIT training module.</p>
       <span class="view-tag">View Certificate</span>
     </div>
-    <div class="card cert-card reveal" style="transition-delay:0.2s" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png')">
+    <div class="card cert-card reveal" style="transition-delay:.2s" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/rvs.png')">
       <div class="card-icon">📄</div>
       <h3>RVS Certificate</h3>
       <p>Recognition of technical proficiency from RVS program participation.</p>
       <span class="view-tag">View Certificate</span>
     </div>
-    <div class="card cert-card reveal" style="transition-delay:0.3s" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwis.png')">
+    <div class="card cert-card reveal" style="transition-delay:.3s" onclick="openImage('https://raw.githubusercontent.com/Dhesika-24/My-Certifications/main/tnwis.png')">
       <div class="card-icon">📄</div>
       <h3>TNWIS Certificate</h3>
       <p>State-level workshop and innovation summit certification.</p>
@@ -511,7 +593,7 @@ footer {
   </div>
 </section>
  
-<!-- ACHIEVEMENTS -->
+<!-- ══════ ACHIEVEMENTS ══════ -->
 <section id="ach">
   <div class="section-header reveal">
     <span class="section-label">Recognition</span>
@@ -524,7 +606,7 @@ footer {
       <h3>NPTEL Certification</h3>
       <p>Successfully completed NPTEL online course with distinction from IIT faculty.</p>
     </div>
-    <div class="card reveal" style="transition-delay:0.1s">
+    <div class="card reveal" style="transition-delay:.1s">
       <div class="card-icon">🏃</div>
       <h3>Marathon Finisher</h3>
       <p>Completed a marathon — a testament to discipline, endurance, and commitment.</p>
@@ -532,10 +614,53 @@ footer {
   </div>
 </section>
  
-<!-- FOOTER -->
-<footer>
-  © 2025 Dhesika P.M. · Crafted with intention
-</footer>
+<!-- ══════ CONTACT ══════ -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-label">Reach Out</span>
+    <div class="divider"></div>
+    <h2>Contact</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-item reveal">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-info">
+        <p>Email</p>
+        <a href="mailto:pmyadhesh@gmail.com">pmyadhesh@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-item reveal" style="transition-delay:.1s">
+      <div class="contact-icon">📞</div>
+      <div class="contact-info">
+        <p>Phone</p>
+        <a href="tel:+916369535634">+91 63695 35634</a>
+      </div>
+    </div>
+    <div class="contact-item reveal" style="transition-delay:.2s">
+      <div class="contact-icon">💼</div>
+      <div class="contact-info">
+        <p>LinkedIn</p>
+        <a href="https://linkedin.com/in/your-link" target="_blank">linkedin.com/in/dhesika</a>
+      </div>
+    </div>
+    <div class="contact-item reveal" style="transition-delay:.3s">
+      <div class="contact-icon">🐙</div>
+      <div class="contact-info">
+        <p>GitHub</p>
+        <a href="https://github.com/yourusername" target="_blank">github.com/dhesika</a>
+      </div>
+    </div>
+    <div class="contact-item reveal" style="transition-delay:.4s">
+      <div class="contact-icon">🧩</div>
+      <div class="contact-info">
+        <p>LeetCode</p>
+        <a href="https://leetcode.com/u/dhesika_24/" target="_blank">leetcode.com/dhesika_24</a>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<footer>© 2025 Dhesika P.M. &nbsp;·&nbsp; Electronics &amp; Communication Engineering</footer>
  
 <!-- POPUP -->
 <div id="popup" onclick="closeImage()">
@@ -543,129 +668,163 @@ footer {
   <img id="popupImg" alt="Certificate">
 </div>
  
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
 <script>
-/* ── NAV scroll shadow ── */
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 20);
+/* ── CURSOR ── */
+const cOuter = document.getElementById('c-outer');
+const cInner = document.getElementById('c-inner');
+let mx=0,my=0,ox=0,oy=0;
+ 
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+ 
+const hoverTargets = document.querySelectorAll('a,.card,.cert-card,.contact-item,.popup-close');
+hoverTargets.forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
 });
  
-/* ── Popup ── */
-function openImage(src) {
-  document.getElementById('popupImg').src = src;
-  document.getElementById('popup').classList.add('active');
-  document.getElementById('popup').style.display = 'flex';
+(function animCursor(){
+  ox+=(mx-ox)*.13; oy+=(my-oy)*.13;
+  cOuter.style.left=ox+'px'; cOuter.style.top=oy+'px';
+  cInner.style.left=mx+'px'; cInner.style.top=my+'px';
+  requestAnimationFrame(animCursor);
+})();
+ 
+/* ── TYPING NAME ── */
+const fullName='DHESIKA P.M.';
+const nameEl=document.getElementById('typedName');
+const curEl=document.getElementById('typeCursor');
+let idx=0;
+function typeChar(){
+  if(idx<fullName.length){nameEl.textContent+=fullName[idx++];setTimeout(typeChar,idx===1?700:90)}
+  else{setTimeout(()=>{curEl.style.display='none'},2000)}
 }
-function closeImage() {
-  document.getElementById('popup').style.display = 'none';
-  document.getElementById('popup').classList.remove('active');
+setTimeout(typeChar,1000);
+ 
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',scrollY>20);
+});
+ 
+/* ── POPUP ── */
+function openImage(src){
+  document.getElementById('popupImg').src=src;
+  const p=document.getElementById('popup');
+  p.style.display='flex';p.classList.add('active');
+}
+function closeImage(){
+  const p=document.getElementById('popup');
+  p.style.display='none';p.classList.remove('active');
 }
  
-/* ── Scroll reveal ── */
-const revealEls = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.12 });
-revealEls.forEach(el => observer.observe(el));
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
  
-/* ── Canvas: soft floating orbs + subtle mesh ── */
-const canvas = document.getElementById('network');
-const ctx = canvas.getContext('2d');
- 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+/* ══════════════════════════════════════════
+   BACKGROUND — Hex Grid + Shooting Stars + Particles
+══════════════════════════════════════════ */
+const canvas=document.getElementById('bgCanvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
 resize();
-window.addEventListener('resize', resize);
+window.addEventListener('resize',resize);
  
-/* Particles */
-const COUNT = 55;
-let particles = [];
- 
-function createParticles() {
-  particles = Array.from({ length: COUNT }, () => ({
-    x:  Math.random() * canvas.width,
-    y:  Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 0.38,
-    vy: (Math.random() - 0.5) * 0.38,
-    r:  Math.random() * 1.8 + 0.6
-  }));
-}
-createParticles();
- 
-let mouse = { x: -9999, y: -9999 };
-window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
- 
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
- 
-  /* subtle warm gradient bg hint */
-  const grad = ctx.createRadialGradient(
-    canvas.width * 0.3, canvas.height * 0.25, 0,
-    canvas.width * 0.3, canvas.height * 0.25, canvas.width * 0.55
-  );
-  grad.addColorStop(0, 'rgba(188,158,118,0.045)');
-  grad.addColorStop(1, 'transparent');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
- 
-  const grad2 = ctx.createRadialGradient(
-    canvas.width * 0.78, canvas.height * 0.72, 0,
-    canvas.width * 0.78, canvas.height * 0.72, canvas.width * 0.45
-  );
-  grad2.addColorStop(0, 'rgba(160,130,90,0.04)');
-  grad2.addColorStop(1, 'transparent');
-  ctx.fillStyle = grad2;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
- 
-  /* particles & connections */
-  for (let i = 0; i < particles.length; i++) {
-    const p = particles[i];
-    p.x += p.vx;
-    p.y += p.vy;
-    if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
- 
-    /* gentle mouse repulsion */
-    const dx = p.x - mouse.x;
-    const dy = p.y - mouse.y;
-    const md = Math.hypot(dx, dy);
-    if (md < 90) {
-      p.vx += (dx / md) * 0.018;
-      p.vy += (dy / md) * 0.018;
+/* — hex grid — */
+function drawHexGrid(){
+  const size=38,w=size*2,h=Math.sqrt(3)*size;
+  ctx.strokeStyle='rgba(99,179,237,0.045)';ctx.lineWidth=.8;
+  for(let row=-1;row<canvas.height/h+2;row++){
+    for(let col=-1;col<canvas.width/w+2;col++){
+      const x=col*w*0.75+(row%2===0?0:w*0.375);
+      const y=row*h;
+      ctx.beginPath();
+      for(let i=0;i<6;i++){
+        const a=Math.PI/180*(60*i-30);
+        const px=x+size*Math.cos(a),py=y+size*Math.sin(a);
+        i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+      }
+      ctx.closePath();ctx.stroke();
     }
+  }
+}
  
-    /* dot */
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(160,128,90,0.32)';
-    ctx.fill();
+/* — shooting stars — */
+let stars=[];
+function spawnStar(){
+  stars.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height*0.5,
+    len:Math.random()*120+60,
+    speed:Math.random()*5+4,
+    angle:Math.PI/6+Math.random()*0.3,
+    alpha:1,life:0,maxLife:60
+  });
+}
+setInterval(spawnStar,1400);
  
-    /* connections */
-    for (let j = i + 1; j < particles.length; j++) {
-      const q = particles[j];
-      const dist = Math.hypot(p.x - q.x, p.y - q.y);
-      if (dist < 130) {
-        const alpha = (1 - dist / 130) * 0.10;
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(q.x, q.y);
-        ctx.strokeStyle = `rgba(160,128,90,${alpha})`;
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
+/* — particles — */
+const PCount=44;
+let particles=Array.from({length:PCount},()=>({
+  x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+  vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
+  r:Math.random()*1.5+.5
+}));
+ 
+let mouse={x:-999,y:-999};
+window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+ 
+let t=0;
+function frame(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  t++;
+ 
+  /* hex grid (static, drawn once as texture) */
+  drawHexGrid();
+ 
+  /* shooting stars */
+  stars=stars.filter(s=>s.life<s.maxLife);
+  stars.forEach(s=>{
+    s.life++;s.x+=Math.cos(s.angle)*s.speed;s.y+=Math.sin(s.angle)*s.speed;
+    const a=s.alpha*(1-s.life/s.maxLife);
+    const grad=ctx.createLinearGradient(s.x,s.y,s.x-Math.cos(s.angle)*s.len,s.y-Math.sin(s.angle)*s.len);
+    grad.addColorStop(0,`rgba(99,179,237,${a})`);
+    grad.addColorStop(1,'transparent');
+    ctx.beginPath();ctx.moveTo(s.x,s.y);
+    ctx.lineTo(s.x-Math.cos(s.angle)*s.len,s.y-Math.sin(s.angle)*s.len);
+    ctx.strokeStyle=grad;ctx.lineWidth=1.5;ctx.stroke();
+    /* head dot */
+    ctx.beginPath();ctx.arc(s.x,s.y,2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(160,220,255,${a})`;ctx.fill();
+  });
+ 
+  /* particles */
+  for(let i=0;i<particles.length;i++){
+    const p=particles[i];
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>canvas.width)p.vx*=-1;
+    if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    const dx=mouse.x-p.x,dy=mouse.y-p.y,md=Math.hypot(dx,dy);
+    if(md<100){p.vx+=dx/md*.01;p.vy+=dy/md*.01}
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(99,179,237,0.22)';ctx.fill();
+    for(let j=i+1;j<particles.length;j++){
+      const q=particles[j],d=Math.hypot(p.x-q.x,p.y-q.y);
+      if(d<110){
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+        ctx.strokeStyle=`rgba(99,179,237,${(1-d/110)*.08})`;
+        ctx.lineWidth=.7;ctx.stroke();
       }
     }
   }
  
-  requestAnimationFrame(draw);
+  requestAnimationFrame(frame);
 }
-draw();
+frame();
 </script>
 </body>
 </html>
